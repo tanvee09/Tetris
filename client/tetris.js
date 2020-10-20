@@ -323,3 +323,17 @@ function drop() {
 }
 
 drop();
+
+trackId = 0;
+music = [];
+music[0] = "music/song1.mp3";
+music[1] = "music/song2.mp3"
+
+shuffleButton = document.getElementById('shuffleButton');
+shuffleButton.addEventListener('click', function() {
+    console.log("Button clicked")
+    trackId = (trackId + 1) % music.length;
+    //document.getElementById('soundTrack').innerHTML = "Hi";
+    alert(music[trackId]);
+    document.getElementById('soundTrack').innerHTML = "<audio loop autoplay><source src=" + music[trackId] + " type='audio/ogg'>Your browser does not support the audio element.</audio>";
+})
