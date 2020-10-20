@@ -1,32 +1,41 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title>Tetris</title>
-        <style>
-            div {
-                font-weight: bold;
-                font-size: 25px;
-            }
 
-            #score {
-                display: inline-block;
-            }
-        </style>
-    </head>
+<head>
+    <title>Tetris</title>
+    <style>
+        div {
+            font-weight: bold;
+            font-size: 25px;
+        }
+        
+        #score {
+            display: inline-block;
+        }
+    </style>
+</head>
 
-    <body>
-        <canvas id="tetris" width="300" height="600" style="border: 2px solid black; background-color: powderblue;">
-
-        </canvas>
-
-        <canvas id="nextPiece" width="120" height="120" style="border: 2px solid black;">
+<body>
+    <canvas id="tetris" width="300" height="600" style="border: 2px solid black; background-color: powderblue;">
 
         </canvas>
-        <div>
-            Score: <div id="score">0</div>
-        </div>
-        <script src="./tetrominoes.js"></script>
-        <script src="./tetris.js"></script>
-    </body>
+
+    <canvas id="futurePiece1" width="120" height="120" style="border: 2px solid black;">
+
+    </canvas>
+    <canvas id="futurePiece2" width="120" height="120" style="border: 2px solid black;">
+
+    </canvas>
+    <canvas id="futurePiece3" width="120" height="120" style="border: 2px solid black;">
+
+    </canvas>
+    <div>
+        Score:
+        <div id="score">0</div>
+    </div>
+    <script src="./tetrominoes.js"></script>
+    <script src="./tetris.js"></script>
+</body>
+
 </html>
