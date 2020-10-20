@@ -35,11 +35,13 @@
     <button class="btn btn-warning" id="shuffleButton" type="button">Next Track</button>
     <button class="btn btn-success" type="button" id="togglePause">Play/Pause</button>
 
-    <div id="soundTrack"> </div>
-
-
-    
-
+    <div id="soundTrack">
+        <audio loop autoplay>
+            <source src="./music/song1.mp3" type='audio/ogg'>
+            Your browser does not support the audio element.
+        </audio> 
+    </div>
+ 
 
     <script src="./tetrominoes.js"></script>
     <script src="./tetris.js"></script>
