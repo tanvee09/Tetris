@@ -17,6 +17,9 @@ const COL = 10;
 const SQ = squareSize = 30;
 const VACANT = 'black';
 
+const FP_ROWS = 5;
+const FP_COLS = 5;
+
 
 // Draw the square
 
@@ -82,8 +85,8 @@ drawBoard();
 
 function drawAllNextPiecesBoard() {
     for (var num = 0; num < 3; num++) {
-        for (var r = 0; r < 4; r++) {
-            for (var c = 0; c < 4; c++) {
+        for (var r = 0; r < FP_ROWS; r++) {
+            for (var c = 0; c < FP_COLS; c++) {
                 drawSquareForNextPieces(c, r, VACANT, num);
             }
         }
@@ -155,6 +158,8 @@ function Piece(Tetromino, color) {
 }
 
 
+// Draw piece with given color
+
 Piece.prototype.fill = function(color) {
     for (var r = 0; r < this.activeTetromino.length; r++) {
         for (var c = 0; c < this.activeTetromino.length; c++) {
@@ -173,6 +178,9 @@ Piece.prototype.draw = function() {
 Piece.prototype.unDraw = function() {
     this.fill(VACANT);
 }
+
+
+// Lock the piece in the board after bottom collision
 
 Piece.prototype.lock = function() {
     for (var r = 0; r < this.activeTetromino.length; r++) {
@@ -212,6 +220,8 @@ Piece.prototype.lock = function() {
 }
 
 
+// Checks for collision of piece
+
 Piece.prototype.collision = function(x, y, piece) {
     for (var r = 0; r < piece.length; r++) {
         for (var c = 0; c < piece.length; c++) {
@@ -240,6 +250,7 @@ Piece.prototype.moveDown = function() {
         this.draw();
     } else {
         this.lock();
+        // drop new piece
         p = futurePieces.shift();
         generateRandomPieces();
         drawfuturePieces();
@@ -270,6 +281,10 @@ Piece.prototype.rotate = function() {
     let nextPattern = this.tetromino[(this.tetrominoN + 1) % this.tetromino.length];
     let kick = 0;
 
+    // Check if the next pattern is colliding before rotating
+
+    // If the pattern is colliding with the on the walls, push it one unit away from the wall
+
     if (this.collision(0, 0, nextPattern)) {
         if (this.x > COL / 2) {
             kick = -1;
@@ -287,6 +302,14 @@ Piece.prototype.rotate = function() {
     }
 }
 
+var paused = false;
+
+document.getElementById("togglePause").addEventListener('click', togglePause);
+
+// toggle play/pause
+function togglePause() {
+    paused = !paused;
+}
 
 
 document.addEventListener("keydown", CONTROL);
@@ -311,12 +334,18 @@ let dropStart = Date.now();
 let gameOver = false;
 
 function drop() {
-    let now = Date.now();
-    let delta = now - dropStart;
-    if (delta > 1000) {
-        p.moveDown();
-        dropStart = Date.now();
+    if (!paused) {
+        let now = Date.now();
+        let delta = now - dropStart;
+
+        // move the piece down every 1 sec
+
+        if (delta > 1000) {
+            p.moveDown();
+            dropStart = Date.now();
+        }
     }
+
     if (!gameOver) {
         requestAnimationFrame(drop);
     }

@@ -1,0 +1,12 @@
+body {
+    margin: 2rem;
+}
+
+div {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+#score {
+    display: inline-block;
+}
