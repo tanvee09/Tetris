@@ -7,8 +7,8 @@ const ctx2 = cvs2.getContext('2d');
 
 const ROW = 20;
 const COL = 10;
-const SQ = squareSize = 20;
-const VACANT = 'white';
+const SQ = squareSize = 30;
+const VACANT = 'black';
 
 
 // Draw the square
@@ -17,15 +17,15 @@ function drawSquare(x, y, color) {
     ctx.fillStyle = color;
     ctx.fillRect(x * SQ, y * SQ, SQ, SQ);
 
-    ctx.strokeStyle = 'black';
-    ctx.strokeRect(x * SQ, y * SQ, SQ, SQ);
+    // ctx.strokeStyle = color;
+    // ctx.strokeRect(x * SQ, y * SQ, SQ, SQ);
 }
 
 function drawSquareForNextPiece(x, y, color) {
     ctx2.fillStyle = color;
     ctx2.fillRect(x * SQ, y * SQ, SQ, SQ);
 
-    ctx2.strokeStyle = 'black';
+    ctx2.strokeStyle = 'white';
     ctx2.strokeRect(x * SQ, y * SQ, SQ, SQ);
 }
 
