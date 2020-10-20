@@ -306,6 +306,7 @@ var paused = false;
 
 document.getElementById("togglePause").addEventListener('click', togglePause);
 
+// toggle play/pause
 function togglePause() {
     paused = !paused;
 }
@@ -332,14 +333,12 @@ function CONTROL(event) {
 let dropStart = Date.now();
 let gameOver = false;
 
-function drop() {
-    
-
-    // move the piece down every 1 sec
-
+function drop() { 
     if (!paused) {
         let now = Date.now();
         let delta = now - dropStart;
+
+        // move the piece down every 1 sec
 
         if (delta > 1000) {
             p.moveDown();
