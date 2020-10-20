@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Tetris</title>
+        <style>
+            div {
+                font-weight: bold;
+                font-size: 25px;
+            }
+
+            #score {
+                display: inline-block;
+            }
+        </style>
+    </head>
+
+    <body>
+        <canvas id="tetris" width="200" height="400" style="border: 2px solid black;">
+
+        </canvas>
+
+        <canvas id="nextPiece" width="80" height="80" style="border: 2px solid black;">
+
+        </canvas>
+        <div>
+            Score: <div id="score">0</div>
+        </div>
+        <script src="./tetrominoes.js"></script>
+        <script src="./tetris.js"></script>
+    </body>
+</html>
