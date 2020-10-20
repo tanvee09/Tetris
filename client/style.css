@@ -1,12 +1,30 @@
 body {
-    margin: 2rem;
+    background-image: url(./assets/background1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-div {
+#gameDiv {
+    margin-top: 5rem;
+}
+
+#scoreOuter {
+    display: inline-block;
+    margin: 2rem 0;
     font-weight: bold;
     font-size: 25px;
+    width: 9rem;
+    padding: 0.5rem 1rem;
+    background-color: red;
+    border-radius: 0.4rem;
+    text-align: left;
 }
 
 #score {
     display: inline-block;
+}
+
+#futurePiece1, #futurePiece2, #futurePiece3 {
+ display: block;
+ margin: 2rem;
 }

@@ -15,33 +15,44 @@
 
 <body>
 
-    <canvas id="tetris" width="300" height="600" style="border: 4px solid gray;">
-    </canvas>
+    <div class="container" id="gameDiv">
+        <div class="row">
+            <div class="col-3 align-self-center text-center">
+                <button class="btn btn-warning btn-lg my-2" id="shuffleButton" type="button">Next Track</button>
+                <button class="btn btn-success btn-lg my-2" type="button" id="togglePause">Play/Pause</button>
+                <button class="btn btn-success btn-lg my-2" type="button" id="newGame">New Game</button>
+                <div id="scoreOuter">
+                    Score:
+                    <div id="score">0</div>
+                </div>
+            </div>
+            <div class="col-6 text-center">
+                <canvas id="tetris" width="360" height="600" style="border: 5px solid gray;">
+                </canvas>
+            </div>
+            <div class="col-3 align-self-center">
+                <canvas id="futurePiece1" width="120" height="120" style="border: 2px solid black;">
+                </canvas> 
 
-    <canvas id="futurePiece1" width="120" height="120" style="border: 2px solid black;">
-    </canvas>
+                <canvas id="futurePiece2" width="120" height="120" style="border: 2px solid black;">
+                </canvas>
 
-    <canvas id="futurePiece2" width="120" height="120" style="border: 2px solid black;">
-    </canvas>
-
-    <canvas id="futurePiece3" width="120" height="120" style="border: 2px solid black;">
-    </canvas>
-
-    <div>
-        Score:
-        <div id="score">0</div>
+                <canvas id="futurePiece3" width="120" height="120" style="border: 2px solid black;">
+                </canvas>                         
+            </div>
+        </div>
+        
+    
+        
     </div>
 
-    <button class="btn btn-warning" id="shuffleButton" type="button">Next Track</button>
-    <button class="btn btn-success" type="button" id="togglePause">Play/Pause</button>
+    
 
     <div id="soundTrack">
-        <audio loop autoplay>
-            <source src="./music/song1.mp3" type='audio/ogg'>
+        <audio loop autoplay><source src="music/song2.mp3" type='audio/ogg'>
             Your browser does not support the audio element.
-        </audio> 
+        </audio>
     </div>
- 
 
     <script src="./tetrominoes.js"></script>
     <script src="./tetris.js"></script>

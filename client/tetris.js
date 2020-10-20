@@ -13,12 +13,28 @@ const fp3 = document.getElementById('futurePiece3');
 const ctxfp3 = fp3.getContext('2d');
 
 const ROW = 20;
-const COL = 10;
+const COL = 12;
 const SQ = squareSize = 30;
 const VACANT = 'black';
 
 const FP_ROWS = 5;
 const FP_COLS = 5;
+
+const PIECES = [
+    [Z, 'red'],
+    [S, 'green'],
+    [T, 'cyan'],
+    [O, 'indigo'],
+    [I, 'yellow'],
+    [L, 'purple'],
+    [J, 'orange']
+];
+
+
+// Create board
+
+let board = [];
+var score = 0;
 
 
 // Draw the square
@@ -58,76 +74,6 @@ function drawSquareForNextPieces(x, y, color, num) {
 }
 
 
-// Create board
-
-let board = [];
-var score = 0;
-
-for (var r = 0; r < ROW; r++) {
-    board[r] = [];
-    for (var c = 0; c < COL; c++) {
-        board[r][c] = VACANT;
-    }
-}
-
-
-// Draw the board
-
-function drawBoard() {
-    for (var r = 0; r < ROW; r++) {
-        for (var c = 0; c < COL; c++) {
-            drawSquare(c, r, board[r][c]);
-        }
-    }
-}
-
-drawBoard();
-
-function drawAllNextPiecesBoard() {
-    for (var num = 0; num < 3; num++) {
-        for (var r = 0; r < FP_ROWS; r++) {
-            for (var c = 0; c < FP_COLS; c++) {
-                drawSquareForNextPieces(c, r, VACANT, num);
-            }
-        }
-    }
-}
-
-drawAllNextPiecesBoard();
-
-
-const PIECES = [
-    [Z, 'red'],
-    [S, 'green'],
-    [T, 'cyan'],
-    [O, 'indigo'],
-    [I, 'yellow'],
-    [L, 'purple'],
-    [J, 'orange']
-];
-
-
-//
-
-futurePieces = [];
-
-function generateRandomPieces() {
-    // fill the future pieces array for upto 3 predictions
-    while (futurePieces.length != 3) {
-        let randomN = Math.floor(Math.random() * PIECES.length);
-        futurePieces.push(new Piece(PIECES[randomN][0], PIECES[randomN][1]));
-    }
-}
-
-
-//create the random piece array initiate a piece
-generateRandomPieces();
-
-// sets the first piece up
-let p = futurePieces.shift();
-// fills the remaining futurePieces array which was empty(at last slot) due to above line
-generateRandomPieces();
-
 function drawfuturePieces() {
     drawAllNextPiecesBoard();
     for (var num = 0; num < 3; num++) {
@@ -142,7 +88,43 @@ function drawfuturePieces() {
     }
 }
 
-drawfuturePieces();
+
+// Draw the board
+
+function drawBoard() {
+    for (var r = 0; r < ROW; r++) {
+        for (var c = 0; c < COL; c++) {
+            drawSquare(c, r, board[r][c]);
+        }
+    }
+}
+
+function drawAllNextPiecesBoard() {
+    for (var num = 0; num < 3; num++) {
+        for (var r = 0; r < FP_ROWS; r++) {
+            for (var c = 0; c < FP_COLS; c++) {
+                drawSquareForNextPieces(c, r, VACANT, num);
+            }
+        }
+    }
+}
+
+
+function generateRandomPieces() {
+    // fill the future pieces array for upto 3 predictions
+    while (futurePieces.length != 3) {
+        let randomN = Math.floor(Math.random() * PIECES.length);
+        futurePieces.push(new Piece(PIECES[randomN][0], PIECES[randomN][1]));
+    }
+}
+
+
+
+futurePieces = [];
+
+generateRandomPieces();
+let p = futurePieces.shift();
+
 
 // Create a piece
 
@@ -302,6 +284,40 @@ Piece.prototype.rotate = function() {
     }
 }
 
+
+
+// starts new game. clears board, generates new next pieces and array
+function startNewGame() {
+    score = 0;
+    scoreElement.innerHTML = 0;
+
+    for (var r = 0; r < ROW; r++) {
+        board[r] = [];
+        for (var c = 0; c < COL; c++) {
+            board[r][c] = VACANT;
+        }
+    }
+
+    drawBoard();
+
+    drawAllNextPiecesBoard();
+
+    //create the random piece array initiate a piece
+    generateRandomPieces();
+
+    // sets the first piece up
+    p = futurePieces.shift();
+    // fills the remaining futurePieces array which was empty(at last slot) due to above line
+    generateRandomPieces();
+
+    drawfuturePieces();
+}
+
+startNewGame();
+
+
+
+
 var paused = false;
 
 document.getElementById("togglePause").addEventListener('click', togglePause);
@@ -310,6 +326,9 @@ document.getElementById("togglePause").addEventListener('click', togglePause);
 function togglePause() {
     paused = !paused;
 }
+
+
+document.getElementById("newGame").addEventListener('click', startNewGame);
 
 
 document.addEventListener("keydown", CONTROL);
