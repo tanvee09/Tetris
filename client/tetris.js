@@ -203,13 +203,16 @@ Piece.prototype.lock = function() {
             }
             
             for (var c = 0; c < COL; c++) {
-                board[0][c] = VACANT
-                lineCleared += 1
+                board[0][c] = VACANT;
+                lineCleared += 1;
             }
+            
         }
     }
+    console.log(lineCleared);
+
     if (lineCleared){
-        score += 10 * ( (2 * lineCleared/12) - 1);
+        score += 10 * ((2 * lineCleared/COL) - 1);
         scoreElement.innerHTML = score;
     }
 
@@ -380,6 +383,7 @@ function startNewGame() {
     score = 0;
     scoreElement.innerHTML = 0;
 
+    paused = false;
     gameOver = false;
 
     for (var r = 0; r < ROW; r++) {
