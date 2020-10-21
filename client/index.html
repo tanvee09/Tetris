@@ -21,27 +21,30 @@
                 <button class="btn btn-warning btn-lg my-2" id="shuffleButton" type="button">Next Track</button>
                 <button class="btn btn-success btn-lg my-2" type="button" id="togglePause">Play/Pause</button>
                 <button class="btn btn-success btn-lg my-2" type="button" id="newGame">New Game</button>
+            </div>
+            <div class="col-6 text-center">
+                <canvas id="tetris" width="300" height="600" style="border: 5px solid white;">
+                </canvas>
+            </div>
+            <div class="col-3 align-self-center text-left">
+                <canvas id="futurePiece1" width="150" height="510" style="border: 5px solid white;">
+                </canvas> 
+
+                <!-- <canvas id="futurePiece2" width="150" height="150" style="border: 2px solid black;">
+                </canvas>
+
+                <canvas id="futurePiece3" width="150" height="150" style="border: 2px solid black;">
+                </canvas>                          -->
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-12">
                 <div id="scoreOuter">
                     Score:
                     <div id="score">0</div>
                 </div>
             </div>
-            <div class="col-6 text-center">
-                <canvas id="tetris" width="360" height="600" style="border: 5px solid gray;">
-                </canvas>
-            </div>
-            <div class="col-3 align-self-center">
-                <canvas id="futurePiece1" width="120" height="120" style="border: 2px solid black;">
-                </canvas> 
-
-                <canvas id="futurePiece2" width="120" height="120" style="border: 2px solid black;">
-                </canvas>
-
-                <canvas id="futurePiece3" width="120" height="120" style="border: 2px solid black;">
-                </canvas>                         
-            </div>
         </div>
-        
     
         
     </div>

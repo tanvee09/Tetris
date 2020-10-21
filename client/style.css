@@ -1,23 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 body {
-    background-image: url(./assets/background1.jpg);
+    background-image: url(./assets/background3.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 #gameDiv {
-    margin-top: 5rem;
+    margin-top: 2rem;
 }
 
 #scoreOuter {
     display: inline-block;
     margin: 2rem 0;
-    font-weight: bold;
+    /* font-weight: bold; */
     font-size: 25px;
-    width: 9rem;
     padding: 0.5rem 1rem;
-    background-color: red;
+    color: white;
     border-radius: 0.4rem;
     text-align: left;
+    font-family: 'Press Start 2P', cursive;
 }
 
 #score {

@@ -6,18 +6,18 @@ const scoreElement = document.getElementById('score');
 const fp1 = document.getElementById('futurePiece1');
 const ctxfp1 = fp1.getContext('2d');
 
-const fp2 = document.getElementById('futurePiece2');
-const ctxfp2 = fp2.getContext('2d');
+// const fp2 = document.getElementById('futurePiece2');
+// const ctxfp2 = fp2.getContext('2d');
 
-const fp3 = document.getElementById('futurePiece3');
-const ctxfp3 = fp3.getContext('2d');
+// const fp3 = document.getElementById('futurePiece3');
+// const ctxfp3 = fp3.getContext('2d');
 
 const ROW = 20;
-const COL = 12;
+const COL = 10;
 const SQ = squareSize = 30;
 const VACANT = 'black';
 
-const FP_ROWS = 5;
+const FP_ROWS = 17;
 const FP_COLS = 5;
 
 const PIECES = [
@@ -45,34 +45,40 @@ function drawSquare(x, y, color) {
     ctx.fillStyle = color;
     ctx.fillRect(x * SQ, y * SQ, SQ, SQ);
 
-    // ctx.strokeStyle = color;
+    // ctx.strokeStyle = 'white';
     // ctx.strokeRect(x * SQ, y * SQ, SQ, SQ);
 }
 
 // Draws a particular Predicted piece
 function drawSquareForNextPieces(x, y, color, num) {
     // num specifies which predicted shape it draws
-    if (num == 0) {
+    // if (num == 0) {
         ctxfp1.fillStyle = color;
         ctxfp1.fillRect(x * SQ, y * SQ, SQ, SQ);
+        if (color != VACANT) {
+            ctxfp1.strokeStyle = 'white';
+            ctxfp1.strokeRect(x * SQ, y * SQ, SQ, SQ);
+        }
+        
+    // }
+    // if (num == 1) {
+    //     ctxfp2.fillStyle = color;
+    //     ctxfp2.fillRect(x * SQ, y * SQ, SQ, SQ);
 
-        ctxfp1.strokeStyle = 'white';
-        ctxfp1.strokeRect(x * SQ, y * SQ, SQ, SQ);
-    }
-    if (num == 1) {
-        ctxfp2.fillStyle = color;
-        ctxfp2.fillRect(x * SQ, y * SQ, SQ, SQ);
+    //     if (color != VACANT) {
+    //         ctxfp2.strokeStyle = 'white';
+    //         ctxfp2.strokeRect(x * SQ, y * SQ, SQ, SQ);
+    //     }
+    // }
+    // if (num == 2) {
+    //     ctxfp3.fillStyle = color;
+    //     ctxfp3.fillRect(x * SQ, y * SQ, SQ, SQ);
 
-        ctxfp2.strokeStyle = 'white';
-        ctxfp2.strokeRect(x * SQ, y * SQ, SQ, SQ);
-    }
-    if (num == 2) {
-        ctxfp3.fillStyle = color;
-        ctxfp3.fillRect(x * SQ, y * SQ, SQ, SQ);
-
-        ctxfp3.strokeStyle = 'white';
-        ctxfp3.strokeRect(x * SQ, y * SQ, SQ, SQ);
-    }
+    //     if (color != VACANT) {
+    //         ctxfp3.strokeStyle = 'white';
+    //         ctxfp3.strokeRect(x * SQ, y * SQ, SQ, SQ);
+    //     }
+    // }
 }
 
 
@@ -80,10 +86,12 @@ function drawfuturePieces() {
     drawAllNextPiecesBoard();
     for (var num = 0; num < 3; num++) {
         let nextPiece = futurePieces[num];
+        let startingX = (5 - nextPiece.activeTetromino.length)/2;
+        let startingY = (5 - nextPiece.activeTetromino.length)/2;
         for (var r = 0; r < nextPiece.activeTetromino.length; r++) {
             for (var c = 0; c < nextPiece.activeTetromino.length; c++) {
                 if (nextPiece.activeTetromino[r][c]) {
-                    drawSquareForNextPieces(c, r, nextPiece.color, num);
+                    drawSquareForNextPieces(startingX + c, 6 * num + startingX + r, nextPiece.color, num);
                 }
             }
         }
@@ -386,6 +394,7 @@ function startNewGame() {
     drawAllNextPiecesBoard();
 
     //create the random piece array initiate a piece
+    futurePieces = [];
     generateRandomPieces();
 
     // sets the first piece up
