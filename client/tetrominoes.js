@@ -1,4 +1,4 @@
-const I = [
+const Hero = [
 	[
 		[0, 0, 0, 0],
 		[1, 1, 1, 1],
@@ -25,7 +25,7 @@ const I = [
 	]
 ];
 
-const J = [
+const BlueRicky = [
 	[
 		[1, 0, 0],
 		[1, 1, 1],
@@ -48,7 +48,7 @@ const J = [
 	]
 ];
 
-const L = [
+const OrangeRicky = [
 	[
 		[0, 0, 1],
 		[1, 1, 1],
@@ -71,7 +71,7 @@ const L = [
 	]
 ];
 
-const O = [
+const SmashBoy = [
 	[
 		[0, 0, 0, 0],
 		[0, 1, 1, 0],
@@ -80,7 +80,7 @@ const O = [
 	]
 ];
 
-const S = [
+const RhodeIsland = [
 	[
 		[0, 1, 1],
 		[1, 1, 0],
@@ -103,7 +103,7 @@ const S = [
 	]
 ];
 
-const T = [
+const Teewee = [
 	[
 		[0, 1, 0],
 		[1, 1, 1],
@@ -126,7 +126,7 @@ const T = [
 	]
 ];
 
-const Z = [
+const Cleaveland = [
 	[
 		[1, 1, 0],
 		[0, 1, 1],

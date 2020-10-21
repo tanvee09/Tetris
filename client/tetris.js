@@ -21,13 +21,13 @@ const FP_ROWS = 5;
 const FP_COLS = 5;
 
 const PIECES = [
-    [Z, 'red'],
-    [S, 'green'],
-    [T, 'cyan'],
-    [O, 'indigo'],
-    [I, 'yellow'],
-    [L, 'purple'],
-    [J, 'orange']
+    [Cleaveland, 'red'],
+    [RhodeIsland, 'green'],
+    [Teewee, 'indigo'],
+    [SmashBoy, 'yellow'],
+    [Hero, 'cyan'],
+    [OrangeRicky, 'orange'],
+    [BlueRicky, 'blue']
 ];
 
 
@@ -181,6 +181,7 @@ Piece.prototype.lock = function() {
     }
 
     // Remove full rows
+    var lineCleared = 0
     for (var r = 0; r < ROW; r++) {
         let isRowFull = true;
         for (c = 0; c < COL; c++) {
@@ -192,12 +193,16 @@ Piece.prototype.lock = function() {
                     board[x][c] = board[x - 1][c];
                 }
             }
+            
             for (var c = 0; c < COL; c++) {
-                board[0][c] = VACANT;
+                board[0][c] = VACANT
+                lineCleared += 1
             }
-            score += 10;
-            scoreElement.innerHTML = score;
         }
+    }
+    if (lineCleared){
+        score += 10 * ( (2 * lineCleared/12) - 1);
+        scoreElement.innerHTML = score;
     }
 
     drawBoard();
