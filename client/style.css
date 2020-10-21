@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 body {
-    background-image: url(./assets/background1.jpg);
+    background-image: url(./assets/bgLight.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -35,7 +35,7 @@ body {
     /* font-weight: bold; */
     font-size: 25px;
     padding: 0.5rem 1rem;
-    color: white;
+    color: black;
     border-radius: 0.4rem;
     text-align: left;
     font-family: 'Press Start 2P', cursive;
@@ -48,4 +48,72 @@ body {
 #futurePiece1, #futurePiece2, #futurePiece3 {
  display: block;
  margin: 2rem;
+}
+
+
+/* For theme toggle button */
+.toggle-wrapper {
+    position: fixed;
+    top: 0.5rem;
+    right: 0.5rem;
+	width: 100px;
+	border-radius: 16px;
+}
+
+.toggle {
+	opacity: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	z-index: 3;
+	position: absolute;
+	top: 0;
+	cursor: pointer;
+}
+
+.toggle-body {
+	display: block;
+	width: 100px;
+	height: 50px;
+	box-sizing: border-box;
+	padding: 10px;
+	border-radius: 25px;
+	background: rgb(166, 208, 245);
+	z-index: 1;
+}
+
+.thumb {
+	position: absolute;
+	border-radius: 15px;
+	top: 10px;
+	left: 10px;
+	width: 30px;
+	height: 30px;
+	background-color: orange;
+	background: -webkit-radial-gradient(10px 10px, circle cover, yellow, #ffcc6e);
+	box-shadow: 0 0 10px yellow;
+	z-index: 2;
+	transition: all 0.4s ease;
+}
+
+.toggle:checked + .toggle-body {
+	background: #153655;
+}
+
+.toggle:checked + .toggle-body .thumb {
+	background: #f8ff89;
+	box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+	left: 60px;
+	transition: all 0.4s ease;
+}
+
+.toggle:checked + .toggle-body .thumb:after {
+	content: '';
+	width: 100%;
+	height: 100%;
+	top: -8px;
+	left: -8px;
+	background: #153655;
+	border-radius: 15px;
+	position: absolute;
 }

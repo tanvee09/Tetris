@@ -14,6 +14,16 @@
 </head>
 
 <body>
+    
+                   
+    <div class="toggle-wrapper">
+        <input type="checkbox" name="toggle" class="toggle" id="themeToggle">
+        <label for="toggle" class="toggle-body">
+          <span class="thumb"></span>
+        </label>
+    </div>
+
+
     <div class="container" id="gameDiv">
         <div id="overlay" onclick=togglePause()>Game Paused</div>
         <div class="row">
@@ -23,17 +33,17 @@
                 <button class="btn btn-warning btn-lg my-2" id="shuffleButton" type="button">Next Track</button>
                 <button class="btn btn-success btn-lg my-2" type="button" id="togglePause">Play/Pause</button>
                 <button class="btn btn-success btn-lg my-2" type="button" id="newGame">New Game</button>
-            </br>
+            <!-- </br>
                 <button type="button" class="btn btn-light" id='themeToggle' style="background: linear-gradient(to right, #33ccff 0%, #ff99cc 100%)">Light||Dark</button>
             </br>
-              <button style="margin: 10px;" type="button" class="btn btn-info" id='themeAlt'>Alternate</button>
+              <button style="margin: 10px;" type="button" class="btn btn-info" id='themeAlt'>Alternate</button> -->
             </div>
             <div class="col-6 text-center">
-                <canvas id="tetris" width="300" height="600" style="border: 5px solid white;">
+                <canvas id="tetris" width="300" height="600" style="border: 5px solid black;">
                 </canvas>
             </div>
             <div class="col-3 align-self-center text-left">
-                <canvas id="futurePiece1" width="150" height="510" style="border: 5px solid white;">
+                <canvas id="futurePiece1" width="150" height="510" style="border: 5px solid black;">
                 </canvas> 
 
                 <!-- 

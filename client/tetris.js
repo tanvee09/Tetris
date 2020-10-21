@@ -18,7 +18,7 @@ const ctxfp2 = fp2.getContext('2d');
 const ROW = 20;
 const COL = 10;
 const SQ = squareSize = 30;
-const VACANT = 'black';
+var VACANT = 'aliceblue';
 
 const FP_ROWS = 17;
 const FP_COLS = 5;
@@ -458,19 +458,47 @@ window.addEventListener("keydown", function(e) {
 }, false);
 
 
+
+function changeBoardBackground(color) {
+    for (var r = 0; r < ROW; r++) {
+        for (var c = 0; c < COL; c++) {
+            if (board[r][c] == color) {
+                drawSquare(c, r, VACANT);
+                board[r][c] = VACANT;
+            }
+        }
+    }
+    drawfuturePieces();
+}
+
+
 document.getElementById("themeToggle").addEventListener('click', themeToggle);
-document.getElementById("themeAlt").addEventListener('click', themealt);
-var theme = 1;
+
+var theme = 1; //light
+
 function themeToggle(){
     if (theme){
-        theme = !theme;
-        document.body.style.backgroundImage = 'url(./assets/background3.jpg)';
+        document.body.style.backgroundImage = 'url(./assets/bgDark.jpg)';
+        VACANT = 'black';
+        changeBoardBackground('aliceblue');
+        document.getElementById('scoreOuter').style.color = 'white';       
+        cvs.style.borderColor = 'white';
+        fp1.style.borderColor = 'white'; 
+        fp2.style.borderColor = 'white';
+    } else {
+        document.body.style.backgroundImage = 'url(./assets/bgLight.jpg)';
+        VACANT = 'aliceblue';
+        changeBoardBackground('black');
+        document.getElementById('scoreOuter').style.color = 'black'; 
+        cvs.style.borderColor = 'black';
+        fp1.style.borderColor = 'black'; 
+        fp2.style.borderColor = 'black';
     }
-    else {
-        theme = !theme;
-        document.body.style.backgroundImage = 'url(./assets/background2.jpg)';
-    }
+    theme = !theme;
 }
-function themealt(){
-    document.body.style.backgroundImage = 'url(./assets/background1.jpg)';
-}
+
+
+// document.getElementById("themeAlt").addEventListener('click', themealt);
+// function themealt(){
+//     document.body.style.backgroundImage = 'url(./assets/background1.jpg)';
+// }
