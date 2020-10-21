@@ -199,7 +199,6 @@ Piece.prototype.lock = function() {
         }
     }
     if (lineCleared){
-        console.log(lineCleared/12);
         score += 10 * ( (2 * lineCleared/12) - 1);
         scoreElement.innerHTML = score;
     }
