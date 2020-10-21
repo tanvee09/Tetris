@@ -6,6 +6,9 @@ const scoreElement = document.getElementById('score');
 const fp1 = document.getElementById('futurePiece1');
 const ctxfp1 = fp1.getContext('2d');
 
+const fp2 = document.getElementById('hold');        //this is the area for help piece
+const ctxfp2 = fp2.getContext('2d'); 
+
 // const fp2 = document.getElementById('futurePiece2');
 // const ctxfp2 = fp2.getContext('2d');
 
@@ -128,8 +131,6 @@ function generateRandomPieces() {
     }
 }
 
-
-
 futurePieces = [];
 
 generateRandomPieces();
@@ -145,7 +146,7 @@ function Piece(Tetromino, color) {
     this.tetrominoN = 0;
     this.activeTetromino = this.tetromino[this.tetrominoN];
 
-    this.x = 4;
+    this.x = 3;
     this.y = -2;
 }
 
@@ -209,7 +210,6 @@ Piece.prototype.lock = function() {
             
         }
     }
-    console.log(lineCleared);
 
     if (lineCleared){
         score += 10 * ((2 * lineCleared/COL) - 1);
@@ -240,6 +240,14 @@ Piece.prototype.collision = function(x, y, piece) {
         }
     }
     return false;
+}
+
+Piece.prototype.hardDrop = function(){
+    while(!this.collision(0, 1, this.activeTetromino)){
+        this.unDraw();
+        this.y++;
+        this.draw();
+    }
 }
 
 
@@ -275,6 +283,13 @@ Piece.prototype.moveRight = function() {
     }
 }
 
+Piece.prototype.hold = function(){
+    this.unDraw();
+    p = futurePieces.shift();
+    generateRandomPieces();
+    drawfuturePieces();
+}
+
 
 
 Piece.prototype.rotate = function() {
@@ -300,6 +315,15 @@ Piece.prototype.rotate = function() {
         this.activeTetromino = this.tetromino[this.tetrominoN];
         this.draw();
     }
+    let now = Date.now();
+        let delta = now - dropStart;
+
+        // move the piece down every 1 sec
+
+        if (delta > 1000) {
+            p.moveDown();
+            dropStart = Date.now();
+        }
 }
 
 
@@ -315,6 +339,12 @@ document.getElementById("togglePause").addEventListener('click', togglePause);
 // toggle play/pause
 function togglePause() {
     paused = !paused;
+    if (paused){
+        document.getElementById("overlay").style.display = "block";
+    }
+    else{
+        document.getElementById("overlay").style.display = "none";
+    }
 }
 
 
@@ -325,7 +355,9 @@ document.addEventListener("keydown", CONTROL);
 
 function CONTROL(event) {
     if (!paused) {
-        if (event.keyCode == 37) {
+        if (event.keyCode == 32){
+            p.hardDrop();
+        } else if (event.keyCode == 37) {
             p.moveLeft();
             dropStart = Date.now();
         } else if (event.keyCode == 38) {
@@ -336,6 +368,8 @@ function CONTROL(event) {
             dropStart = Date.now();
         } else if (event.keyCode == 40) {
             p.moveDown();
+        } else if (event.keyCode == 67) {
+            p.hold();
         }
     }
 }
@@ -397,6 +431,7 @@ function startNewGame() {
 
     drawAllNextPiecesBoard();
 
+
     //create the random piece array initiate a piece
     futurePieces = [];
     generateRandomPieces();
@@ -421,3 +456,21 @@ window.addEventListener("keydown", function(e) {
         e.preventDefault();
     }
 }, false);
+
+
+document.getElementById("themeToggle").addEventListener('click', themeToggle);
+document.getElementById("themeAlt").addEventListener('click', themealt);
+var theme = 1;
+function themeToggle(){
+    if (theme){
+        theme = !theme;
+        document.body.style.backgroundImage = 'url(./assets/background3.jpg)';
+    }
+    else {
+        theme = !theme;
+        document.body.style.backgroundImage = 'url(./assets/background2.jpg)';
+    }
+}
+function themealt(){
+    document.body.style.backgroundImage = 'url(./assets/background1.jpg)';
+}
