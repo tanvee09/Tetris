@@ -36,6 +36,8 @@ const PIECES = [
 let board = [];
 var score = 0;
 
+let gameOver = false;
+
 
 // Draw the square
 
@@ -286,34 +288,6 @@ Piece.prototype.rotate = function() {
 
 
 
-// starts new game. clears board, generates new next pieces and array
-function startNewGame() {
-    score = 0;
-    scoreElement.innerHTML = 0;
-
-    for (var r = 0; r < ROW; r++) {
-        board[r] = [];
-        for (var c = 0; c < COL; c++) {
-            board[r][c] = VACANT;
-        }
-    }
-
-    drawBoard();
-
-    drawAllNextPiecesBoard();
-
-    //create the random piece array initiate a piece
-    generateRandomPieces();
-
-    // sets the first piece up
-    p = futurePieces.shift();
-    // fills the remaining futurePieces array which was empty(at last slot) due to above line
-    generateRandomPieces();
-
-    drawfuturePieces();
-}
-
-startNewGame();
 
 
 
@@ -352,7 +326,7 @@ function CONTROL(event) {
 
 
 let dropStart = Date.now();
-let gameOver = false;
+
 
 function drop() {
     if (!paused) {
@@ -368,11 +342,11 @@ function drop() {
     }
 
     if (!gameOver) {
-        requestAnimationFrame(drop);
+        requestAnimationFrame(drop); 
     }
+
 }
 
-drop();
 
 trackId = 0;
 music = [];
@@ -384,4 +358,40 @@ shuffleButton.addEventListener('click', function() {
     console.log("Button clicked")
     trackId = (trackId + 1) % music.length;
     document.getElementById('soundTrack').innerHTML = "<audio loop autoplay><source src=" + music[trackId] + " type='audio/ogg'>Your browser does not support the audio element.</audio>";
-})
+});
+
+
+
+// starts new game. clears board, generates new next pieces and array
+function startNewGame() {
+    score = 0;
+    scoreElement.innerHTML = 0;
+
+    gameOver = false;
+
+    for (var r = 0; r < ROW; r++) {
+        board[r] = [];
+        for (var c = 0; c < COL; c++) {
+            board[r][c] = VACANT;
+        }
+    }
+
+    drawBoard();
+
+    drawAllNextPiecesBoard();
+
+    //create the random piece array initiate a piece
+    generateRandomPieces();
+
+    // sets the first piece up
+    p = futurePieces.shift();
+    // fills the remaining futurePieces array which was empty(at last slot) due to above line
+    generateRandomPieces();
+
+    drawfuturePieces();
+
+    drop();
+
+}
+
+startNewGame();
