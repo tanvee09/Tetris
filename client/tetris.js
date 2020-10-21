@@ -145,7 +145,7 @@ function Piece(Tetromino, color) {
     this.tetrominoN = 0;
     this.activeTetromino = this.tetromino[this.tetrominoN];
 
-    this.x = 3;
+    this.x = 4;
     this.y = -2;
 }
 
