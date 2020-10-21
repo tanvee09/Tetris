@@ -13,7 +13,7 @@ const fp3 = document.getElementById('futurePiece3');
 const ctxfp3 = fp3.getContext('2d');
 
 const ROW = 20;
-const COL = 12;
+const COL = 13;
 const SQ = squareSize = 30;
 const VACANT = 'black';
 
