@@ -19,6 +19,7 @@ const ROW = 20;
 const COL = 10;
 const SQ = squareSize = 30;
 var VACANT = 'aliceblue';
+var lineColor = 'black';
 
 const FP_ROWS = 17;
 const FP_COLS = 5;
@@ -59,7 +60,7 @@ function drawSquareForNextPieces(x, y, color, num) {
         ctxfp1.fillStyle = color;
         ctxfp1.fillRect(x * SQ, y * SQ, SQ, SQ);
         if (color != VACANT) {
-            ctxfp1.strokeStyle = 'white';
+            ctxfp1.strokeStyle = lineColor;
             ctxfp1.strokeRect(x * SQ, y * SQ, SQ, SQ);
         }
         
@@ -480,6 +481,7 @@ function themeToggle(){
     if (theme){
         document.body.style.backgroundImage = 'url(./assets/bgDark.jpg)';
         VACANT = 'black';
+        lineColor = 'white';
         changeBoardBackground('aliceblue');
         document.getElementById('scoreOuter').style.color = 'white';       
         cvs.style.borderColor = 'white';
@@ -488,6 +490,7 @@ function themeToggle(){
     } else {
         document.body.style.backgroundImage = 'url(./assets/bgLight.jpg)';
         VACANT = 'aliceblue';
+        lineColor = 'black';
         changeBoardBackground('black');
         document.getElementById('scoreOuter').style.color = 'black'; 
         cvs.style.borderColor = 'black';
