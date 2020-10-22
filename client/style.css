@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
 
 body {
     background-image: url(./assets/bgLight.jpg);
@@ -41,8 +42,18 @@ body {
     font-family: 'Press Start 2P', cursive;
 }
 
-#score {
-    display: inline-block;
+#score, #time {
+	display: inline-block;
+}
+
+#timeOuter {
+	margin-top: 2rem;
+	display: inline-block;
+	font-size: 25px;
+	color: black;
+	font-family: 'Ubuntu', sans-serif;
+	text-align: right;
+	width: 8rem;
 }
 
 #futurePiece1, #futurePiece2, #futurePiece3 {

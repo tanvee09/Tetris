@@ -1,6 +1,7 @@
 const cvs = document.getElementById('tetris');
 const ctx = cvs.getContext('2d');
 const scoreElement = document.getElementById('score');
+var timeElement = document.getElementById('time');
 
 // instantiating 3 futurePiece Context
 const fp1 = document.getElementById('futurePiece1');
@@ -41,6 +42,8 @@ let board = [];
 var score = 0;
 
 let gameOver = false;
+
+var timeElapsed = 0;
 
 
 // Draw the square
@@ -444,6 +447,9 @@ function startNewGame() {
 
     drawfuturePieces();
 
+    timeElement.innerHTML = '00:00.0';
+    timeElapsed = 0;
+
     drop();
 
 }
@@ -483,7 +489,8 @@ function themeToggle(){
         VACANT = 'black';
         lineColor = 'white';
         changeBoardBackground('aliceblue');
-        document.getElementById('scoreOuter').style.color = 'white';       
+        document.getElementById('scoreOuter').style.color = 'white';  
+        document.getElementById('timeOuter').style.color = 'white';       
         cvs.style.borderColor = 'white';
         fp1.style.borderColor = 'white'; 
         fp2.style.borderColor = 'white';
@@ -493,6 +500,7 @@ function themeToggle(){
         lineColor = 'black';
         changeBoardBackground('black');
         document.getElementById('scoreOuter').style.color = 'black'; 
+        document.getElementById('timeOuter').style.color = 'black'; 
         cvs.style.borderColor = 'black';
         fp1.style.borderColor = 'black'; 
         fp2.style.borderColor = 'black';
@@ -507,9 +515,41 @@ function themeToggle(){
 // }
 
 
+// For volume control
+
 window.SetVolume = function(val) {
     var player = document.getElementById('song');
     console.log('Before: ' + player.volume);
     player.volume = val / 100;
     console.log('After: ' + player.volume);
 }
+
+
+// Implement timer 
+setInterval(function(){ 
+    if (!paused) {
+        var mins = parseInt(timeElement.innerHTML.split(':')[0]);
+        var secs = parseInt((timeElement.innerHTML.split(':')[1]).split('.')[0]);
+        var decisecs = parseInt((timeElement.innerHTML.split(':')[1]).split('.')[1]) + 1;
+        if (decisecs == 10) {
+            decisecs = 0;
+            secs += 1;
+        }
+        if (secs == 60) {
+            secs = 0;
+            mins += 1;
+        }
+        var dispTime = '';
+        if (mins < 10) {
+            dispTime += '0';
+        }
+        dispTime += mins + ':';
+        if (secs < 10) {
+            dispTime += '0';
+        }
+        dispTime += secs + '.';
+        dispTime += decisecs;
+        
+        timeElement.innerHTML = dispTime;
+    }
+}, 100);
