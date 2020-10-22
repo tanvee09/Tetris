@@ -526,7 +526,7 @@ window.SetVolume = function(val) {
 
 
 // Implement timer 
-setInterval(function(){ 
+setInterval(async function(){ 
     if (!paused) {
         var mins = parseInt(timeElement.innerHTML.split(':')[0]);
         var secs = parseInt((timeElement.innerHTML.split(':')[1]).split('.')[0]);
