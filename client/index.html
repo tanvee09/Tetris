@@ -10,6 +10,7 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <link rel="stylesheet" href="./style.css">
 </head>
 
@@ -67,10 +68,13 @@
     
 
     <div id="soundTrack">
-        <audio loop autoplay><source src="music/song2.mp3" type='audio/ogg'>
+        <audio loop autoplay id="song"><source src="music/song2.mp3" type='audio/ogg'>
             Your browser does not support the audio element.
         </audio>
+        
     </div>
+
+    <input id="vol-control" type="range" min="0" max="100" step="1" oninput="SetVolume(this.value)" onchange="SetVolume(this.value)">
 
     <script src="./tetrominoes.js"></script>
     <script src="./tetris.js"></script>
