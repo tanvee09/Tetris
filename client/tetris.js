@@ -43,7 +43,7 @@ var score = 0;
 
 let gameOver = false;
 
-var timeElapsed = 0;
+var mins = 0, secs = 0, decisecs = 0;
 
 
 // Draw the square
@@ -448,7 +448,7 @@ function startNewGame() {
     drawfuturePieces();
 
     timeElement.innerHTML = '00:00.0';
-    timeElapsed = 0;
+    mins =secs = decisecs = 0;
 
     drop();
 
@@ -528,9 +528,7 @@ window.SetVolume = function(val) {
 // Implement timer 
 setInterval(async function(){ 
     if (!paused) {
-        var mins = parseInt(timeElement.innerHTML.split(':')[0]);
-        var secs = parseInt((timeElement.innerHTML.split(':')[1]).split('.')[0]);
-        var decisecs = parseInt((timeElement.innerHTML.split(':')[1]).split('.')[1]) + 1;
+        decisecs += 1;
         if (decisecs == 10) {
             decisecs = 0;
             secs += 1;
