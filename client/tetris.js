@@ -370,7 +370,7 @@ document.getElementById("newGame").addEventListener('click', startNewGame);
 document.addEventListener("keydown", CONTROL);
 
 function CONTROL(event) {
-    if (!paused) {
+    if (!paused && !gameOver) {
         if (event.keyCode == 32){
             p.hardDrop();
         } else if (event.keyCode == 37) {
@@ -423,7 +423,7 @@ shuffleButton = document.getElementById('shuffleButton');
 shuffleButton.addEventListener('click', function() {
     console.log("Button clicked")
     trackId = (trackId + 1) % music.length;
-    document.getElementById('soundTrack').innerHTML = "<audio loop autoplay><source src=" + music[trackId] + " type='audio/ogg'>Your browser does not support the audio element.</audio>";
+    document.getElementById('soundTrack').innerHTML = "<audio loop autoplay id='song'><source src=" + music[trackId] + " type='audio/ogg'>Your browser does not support the audio element.</audio>";
 });
 
 
@@ -531,9 +531,7 @@ function themeToggle(){
 
 window.SetVolume = function(val) {
     var player = document.getElementById('song');
-    console.log('Before: ' + player.volume);
     player.volume = val / 100;
-    console.log('After: ' + player.volume);
     gameVolume = document.getElementById("song").volume;
 }
 
