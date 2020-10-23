@@ -16,6 +16,8 @@ const ctxfp2 = fp2.getContext('2d');
 // const fp3 = document.getElementById('futurePiece3');
 // const ctxfp3 = fp3.getContext('2d');
 
+
+var gameVolume = 1;
 const ROW = 20;
 const COL = 10;
 const SQ = squareSize = 30;
@@ -185,6 +187,14 @@ Piece.prototype.lock = function() {
             if (!this.activeTetromino[r][c]) {
                 continue;
             } else if (this.y + r < 0) {
+                // we will pause the current track , and set its volume to 0
+                // we must fix the sound thing as well
+                gameVolume = document.getElementById("song").volume;
+				document.getElementById("song").volume = 0;
+				
+                document.getElementById('gameover').play();
+
+
                 alert(`Game Over! Your score is ${score}.`);
                 gameOver = true;
                 break;
@@ -235,10 +245,12 @@ Piece.prototype.collision = function(x, y, piece) {
             let newX = this.x + x + c;
             let newY = this.y + y + r;
             if (newX < 0 || newX >= COL || newY >= ROW) {
+                document.getElementById('blockLock').play();
                 return true;
             } else if (newY < 0) {
                 continue;
             } else if (board[newY][newX] != VACANT) {
+                document.getElementById('blockLock').play();
                 return true;
             }
         }
@@ -522,6 +534,7 @@ window.SetVolume = function(val) {
     console.log('Before: ' + player.volume);
     player.volume = val / 100;
     console.log('After: ' + player.volume);
+    gameVolume = document.getElementById("song").volume;
 }
 
 
