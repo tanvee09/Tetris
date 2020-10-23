@@ -331,20 +331,7 @@ Piece.prototype.rotate = function() {
         this.activeTetromino = this.tetromino[this.tetrominoN];
         this.draw();
     }
-    let now = Date.now();
-        let delta = now - dropStart;
-
-        // move the piece down every 1 sec
-
-        if (delta > 1000) {
-            p.moveDown();
-            dropStart = Date.now();
-        }
 }
-
-
-
-
 
 
 
@@ -375,13 +362,13 @@ function CONTROL(event) {
             p.hardDrop();
         } else if (event.keyCode == 37) {
             p.moveLeft();
-            dropStart = Date.now();
+            // dropStart = Date.now();
         } else if (event.keyCode == 38) {
             p.rotate();
-            dropStart = Date.now();
+            // dropStart = Date.now();
         } else if (event.keyCode == 39) {
             p.moveRight();
-            dropStart = Date.now();
+            // dropStart = Date.now();
         } else if (event.keyCode == 40) {
             p.moveDown();
         } else if (event.keyCode == 67) {
@@ -406,12 +393,12 @@ function drop() {
             dropStart = Date.now();
         }
     }
-
     if (!gameOver) {
         requestAnimationFrame(drop); 
     }
 
 }
+
 
 
 trackId = 0;
