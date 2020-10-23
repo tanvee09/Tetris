@@ -540,7 +540,7 @@ window.SetVolume = function(val) {
 
 // Implement timer 
 setInterval(async function(){ 
-    if (!paused) {
+    if (!paused && !gameOver) {
         decisecs += 1;
         if (decisecs == 10) {
             decisecs = 0;
