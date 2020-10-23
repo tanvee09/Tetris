@@ -529,7 +529,7 @@ function themeToggle(){
 
 // For volume control
 
-window.SetVolume = function(val) {
+function setVolume (val) {
     var player = document.getElementById('song');
     player.volume = val / 100;
     gameVolume = document.getElementById("song").volume;

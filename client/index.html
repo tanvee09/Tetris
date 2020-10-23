@@ -83,7 +83,7 @@
 	<audio id="gameover" src="./music/gameover.wav" preload="auto"></audio>
 	<audio id="blockLock" src="./music/fall.wav" preload="auto"></audio>
 
-    <input id="vol-control" type="range" min="0" max="100" step="1" oninput="SetVolume(this.value)" onchange="SetVolume(this.value)">
+    <input id="vol-control" type="range" min="0" max="100" step="1" onload="setVolume(this.value)" oninput="setVolume(this.value)" onchange="setVolume(this.value)">
 
     <script src="./tetrominoes.js"></script>
     <script src="./tetris.js"></script>
