@@ -1,0 +1,22 @@
+<center><h1>Scoreboard</h1></center>
+
+
+    <table id="scores">
+      <tr>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Score</th>
+        <th>Time Taken</th>
+      </tr>
+
+      <% entries.forEach(entry => { %>
+
+        <tr>
+          <td><%= entry.rank %></td>
+          <td><%= entry.name %></td>
+          <td><%= entry.score %></td>
+          <td><%= entry.time_taken %></td>       
+        </tr>
+    <% }) %>
+      
+    </table>

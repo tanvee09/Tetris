@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Nodejs</title>
+
+        <style>
+
+        .alert {
+            padding: 20px;
+            background-color: #f44336;
+            color: white;
+        }
+
+        .alert.pos {
+            background-color: green;
+        }
+
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .closebtn:hover {
+            color: black;
+        }
+
+        </style>
+    </head>
+
+    <body>
+        <% if(typeof errors != 'undefined') { %>
+            <% errors.forEach(error => { %>
+                <div class="alert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                    <%=error.message %>
+                </div>
+            <% }) %>
+        <% } %>
+
+        <form id="scoreForm" method="POST" action="/score">
+            <input type="text" id="name" name="nameInp"/><br><br>
+            <input type="number" id="score" name="scoreInp"/><br><br>
+            <input type="number" id="time" name="timeInp"/><br><br>
+            <button type="submit" id="submitBtn">Submit</button>
+        </form>
+    </body>
+</html>
