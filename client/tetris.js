@@ -194,9 +194,9 @@ Piece.prototype.lock = function() {
 				
                 document.getElementById('gameover').play();
 
-
-                alert(`Game Over! Your score is ${score}.`);
                 gameOver = true;
+                document.getElementById('scoreDisp').innerHTML = score;
+                document.getElementById('endOverlay').style.display = '';
                 break;
             }
             board[this.y + r][this.x + c] = this.color;
@@ -331,20 +331,7 @@ Piece.prototype.rotate = function() {
         this.activeTetromino = this.tetromino[this.tetrominoN];
         this.draw();
     }
-    let now = Date.now();
-        let delta = now - dropStart;
-
-        // move the piece down every 1 sec
-
-        if (delta > 1000) {
-            p.moveDown();
-            dropStart = Date.now();
-        }
 }
-
-
-
-
 
 
 
@@ -375,13 +362,13 @@ function CONTROL(event) {
             p.hardDrop();
         } else if (event.keyCode == 37) {
             p.moveLeft();
-            dropStart = Date.now();
+            // dropStart = Date.now();
         } else if (event.keyCode == 38) {
             p.rotate();
-            dropStart = Date.now();
+            // dropStart = Date.now();
         } else if (event.keyCode == 39) {
             p.moveRight();
-            dropStart = Date.now();
+            // dropStart = Date.now();
         } else if (event.keyCode == 40) {
             p.moveDown();
         } else if (event.keyCode == 67) {
@@ -406,12 +393,11 @@ function drop() {
             dropStart = Date.now();
         }
     }
-
     if (!gameOver) {
         requestAnimationFrame(drop); 
     }
-
 }
+
 
 
 trackId = 0;
@@ -430,6 +416,13 @@ shuffleButton.addEventListener('click', function() {
 
 // starts new game. clears board, generates new next pieces and array
 function startNewGame() {
+    var btns = document.getElementsByClassName('btns');
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].style.display = '';
+    }
+    document.getElementById('scoreForm').style.display = 'none';
+    document.getElementById('endOverlay').style.display = 'none';
+
     score = 0;
     scoreElement.innerHTML = 0;
 
@@ -497,7 +490,7 @@ var theme = 1; //light
 
 function themeToggle(){
     if (theme){
-        document.body.style.backgroundImage = 'url(./assets/bgDark.jpg)';
+        document.body.style.backgroundImage = 'url(./assets/bgTetrisBlocks.jpg)';
         VACANT = 'black';
         lineColor = 'white';
         changeBoardBackground('aliceblue');
@@ -507,7 +500,7 @@ function themeToggle(){
         fp1.style.borderColor = 'white'; 
         fp2.style.borderColor = 'white';
     } else {
-        document.body.style.backgroundImage = 'url(./assets/bgLight.jpg)';
+        document.body.style.backgroundImage = 'url(./assets/bgTetrisBlocksLight.jpg)';
         VACANT = 'aliceblue';
         lineColor = 'black';
         changeBoardBackground('black');
@@ -529,7 +522,7 @@ function themeToggle(){
 
 // For volume control
 
-window.SetVolume = function(val) {
+function setVolume (val) {
     var player = document.getElementById('song');
     player.volume = val / 100;
     gameVolume = document.getElementById("song").volume;
@@ -562,3 +555,12 @@ setInterval(async function(){
         timeElement.innerHTML = dispTime;
     }
 }, 100);
+
+
+function showForm() {
+    var btns = document.getElementsByClassName('btns');
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].style.display = 'none';
+    }
+    document.getElementById('scoreForm').style.display = 'block';
+}

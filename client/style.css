@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
 
 body {
-    background-image: url(./assets/bgLight.jpg);
+    background-image: url(./assets/bgTetrisBlocksLight.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -143,4 +143,8 @@ body {
 
 #vol-control:hover {
     opacity: 1;
+}
+
+#vol-control:focus {
+	outline: none;
 }

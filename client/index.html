@@ -12,6 +12,7 @@
     />
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./gameOver.css">
 </head>
 
 <body>
@@ -24,12 +25,28 @@
         </label>
     </div>
 
+    <div id="endOverlay">
+        <div id="gameOverOverlay">
+            <p id="gameOverText">GAME OVER</p>
+            <img src="./assets/hourglass.gif" height="100px" style="margin-top: -3.5rem;"><br>
+            <div id="finalScore">
+                Your Score: <p id="scoreDisp" style="display: inline;"></p>
+            </div>
+    
+            <button type="button" class="btns" onclick="showForm()">Save Score</button><br>
+            <button type="button" class="btns" onclick="startNewGame()">Play Again</button>
+            <form id="scoreForm">
+                <input type="text" placeholder="Enter Name" id="nameInp"><br>
+                <button type="button" class="formbtn" onclick="startNewGame()">Submit</button>
+            </form>
+        </div>
+    </div>
 
     <div class="container" id="gameDiv">
         <div id="overlay" onclick=togglePause()>Game Paused</div>
         <div class="row">
             <div class="col-3 align-self-center text-center">
-                <canvas id="hold" width="180" height="150" style="border: 2px solid black;">
+                <canvas id="hold" width="180" height="150" style="border: 5px solid black;">
                 </canvas>
                 <button class="btn btn-warning btn-lg my-2" id="shuffleButton" type="button">Next Track</button>
                 <button class="btn btn-success btn-lg my-2" type="button" id="togglePause">Play/Pause</button>
@@ -83,7 +100,7 @@
 	<audio id="gameover" src="./music/gameover.wav" preload="auto"></audio>
 	<audio id="blockLock" src="./music/fall.wav" preload="auto"></audio>
 
-    <input id="vol-control" type="range" min="0" max="100" step="1" oninput="SetVolume(this.value)" onchange="SetVolume(this.value)">
+    <input id="vol-control" type="range" min="0" max="100" step="1" onload="setVolume(this.value)" oninput="setVolume(this.value)" onchange="setVolume(this.value)">
 
     <script src="./tetrominoes.js"></script>
     <script src="./tetris.js"></script>
