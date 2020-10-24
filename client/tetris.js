@@ -416,14 +416,11 @@ shuffleButton.addEventListener('click', function() {
 
 // starts new game. clears board, generates new next pieces and array
 function startNewGame() {
-<<<<<<< HEAD
     var btns = document.getElementsByClassName('btns');
     for (var i = 0; i < btns.length; i++) {
         btns[i].style.display = '';
     }
     document.getElementById('scoreForm').style.display = 'none';
-=======
->>>>>>> ebe8473b06b73f65124a4814d38607b2a2bb0606
     document.getElementById('endOverlay').style.display = 'none';
 
     score = 0;
