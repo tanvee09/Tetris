@@ -194,9 +194,9 @@ Piece.prototype.lock = function() {
 				
                 document.getElementById('gameover').play();
 
-
-                alert(`Game Over! Your score is ${score}.`);
                 gameOver = true;
+                document.getElementById('scoreDisp').innerHTML = score;
+                document.getElementById('endOverlay').style.display = '';
                 break;
             }
             board[this.y + r][this.x + c] = this.color;
@@ -396,7 +396,6 @@ function drop() {
     if (!gameOver) {
         requestAnimationFrame(drop); 
     }
-
 }
 
 
@@ -417,6 +416,8 @@ shuffleButton.addEventListener('click', function() {
 
 // starts new game. clears board, generates new next pieces and array
 function startNewGame() {
+    document.getElementById('endOverlay').style.display = 'none';
+
     score = 0;
     scoreElement.innerHTML = 0;
 
@@ -549,3 +550,12 @@ setInterval(async function(){
         timeElement.innerHTML = dispTime;
     }
 }, 100);
+
+
+function showForm() {
+    var btns = document.getElementsByClassName('btns');
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].style.display = 'none';
+    }
+    document.getElementById('scoreForm').style.display = 'block';
+}
