@@ -39,7 +39,7 @@ app.post("/score", async(req, res) => {
                     `UPDATE scores_test
                      SET name=$1
                      WHERE id=$2;`,
-                    [results.rows[0].name + results.rows[0].id, results.rows[0].id],
+                    [results.rows[0].name + '#' + results.rows[0].id, results.rows[0].id],
                     (err, results) => {
                         if (err) {
                             console.log(err);
