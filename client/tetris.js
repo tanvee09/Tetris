@@ -1,3 +1,4 @@
+var init_load = 1;
 const cvs = document.getElementById('tetris');
 const ctx = cvs.getContext('2d');
 const scoreElement = document.getElementById('score');
@@ -382,7 +383,7 @@ let dropStart = Date.now();
 
 
 function drop() {
-    if (!paused) {
+    if (!paused && !init_load) {
         let now = Date.now();
         let delta = now - dropStart;
 
@@ -528,10 +529,9 @@ function setVolume (val) {
     gameVolume = document.getElementById("song").volume;
 }
 
-
 // Implement timer 
 setInterval(async function(){ 
-    if (!paused && !gameOver) {
+    if (!paused && !gameOver && !init_load) {
         decisecs += 1;
         if (decisecs == 10) {
             decisecs = 0;
@@ -563,4 +563,27 @@ function showForm() {
         btns[i].style.display = 'none';
     }
     document.getElementById('scoreForm').style.display = 'block';
+}
+
+//function startScreen() On start wait 3 seconds
+{
+    document.getElementById('overlay').style.display = "block";
+    f1();
+    function f1(){
+        document.getElementById('overlay').innerHTML = "Ready|3";
+        setTimeout(f2, 1000);
+    }
+    function f2(){
+        document.getElementById('overlay').innerHTML = "Set|2";
+        setTimeout(f3, 1000);
+    }
+    function f3(){
+        document.getElementById('overlay').innerHTML = "Go|1";
+        setTimeout(f4, 1000);
+    }
+    function f4(){
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('overlay').innerHTML = "Game Paused";
+        init_load = 0;
+    }
 }
