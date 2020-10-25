@@ -1,22 +1,52 @@
-<center><h1>Scoreboard</h1></center>
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Tetris</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./gameOver.css">
+</head>
+
+<body style="color: white;">
+    
+    <center><h1>Scoreboard</h1></center>
 
 
     <table id="scores">
-      <tr>
-        <th>Rank</th>
-        <th>Name</th>
-        <th>Score</th>
-        <th>Time Taken</th>
-      </tr>
-
-      <% entries.forEach(entry => { %>
-
         <tr>
-          <td><%= entry.rank %></td>
-          <td><%= entry.name %></td>
-          <td><%= entry.score %></td>
-          <td><%= entry.time_taken %></td>       
+          <th>Rank</th>
+          <th>Name</th>
+          <th>Score</th>
+          <th>Time Taken</th>
         </tr>
-    <% }) %>
-      
+
+        <% entries.forEach(entry => { %>
+          <tr>
+            <td><%= entry.rank %></td>
+            <td><%= entry.name %></td>
+            <td><%= entry.score %></td>
+            <td><%= entry.time_taken %></td>       
+          </tr>
+       <% }) %>
+    
     </table>
+
+    <a href="/"><button type="button">Play Again</button></a>
+
+    <script src="./tetrominoes.js"></script>
+    <script src="./tetris.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

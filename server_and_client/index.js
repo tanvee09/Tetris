@@ -6,16 +6,17 @@ app.set("view engine", "ejs");
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static("static"));
 
 
-// ROUTES
 
-app.get("/score", async(req, res) => {
+app.get("/", async(req, res) => {
     res.render("index");
 });
 
+
 // Add scores
-app.post("/score", async(req, res) => {
+app.post("/", async(req, res) => {
     const { nameInp, scoreInp, timeInp } = req.body;
     let errors = [];
     console.log(nameInp + ',' + scoreInp + ',' + timeInp);
