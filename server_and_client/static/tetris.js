@@ -32,7 +32,6 @@ const FP_COLS = 5;
 const HOLD_COLS = 5;
 const HOLD_ROWS = 5;
 
-
 const PIECES = [
     [Cleaveland, 'red'],
     [RhodeIsland, 'green'],
@@ -158,10 +157,9 @@ function drawHoldPieceBoard() {
         }
     }
 }
-
 var heldPiece;
 // Draw held piece
-function drawHeldPiece() {
+function drawHeldPiece(heldPiece) {
     drawHoldPieceBoard();
     let startingX = (5 - heldPiece.activeTetromino.length)/2;
     let startingY = (5 - heldPiece.activeTetromino.length)/2;
@@ -347,14 +345,24 @@ Piece.prototype.moveRight = function() {
     }
 }
 
+var init = 1; //for first piece to be held (find a better way)
 Piece.prototype.hold = function(){
-    heldPiecePresent = true;
-    heldPiece = p;
-    this.unDraw();
-    drawHeldPiece(p);
-    p = futurePieces.shift();
-    generateRandomPieces();
-    drawfuturePieces();
+    if (init){
+        init = 0;
+        this.unDraw();
+        drawHeldPiece(p);
+        replace = p;
+        p = futurePieces.shift();
+        generateRandomPieces();
+        drawfuturePieces();
+    }
+    else{
+        this.unDraw();
+        drawHeldPiece(p);
+        p.x = 3, p.y = -2;
+        p = replace;
+        replace = this;
+    }
 }
 
 
@@ -552,7 +560,7 @@ function themeToggle(){
         document.getElementById('scoreOuter').style.color = 'white';  
         document.getElementById('timeOuter').style.color = 'white';       
         cvs.style.borderColor = 'white';
-        fp1.style.borderColor = 'white'; 
+        fp1.style.borderColor = 'white';
         holdCvs.style.borderColor = 'white';
     } else {
         document.body.style.backgroundImage = 'url(./assets/bgTetrisBlocksLight.jpg)';
@@ -562,7 +570,7 @@ function themeToggle(){
         document.getElementById('scoreOuter').style.color = 'black'; 
         document.getElementById('timeOuter').style.color = 'black'; 
         cvs.style.borderColor = 'black';
-        holdCvs.style.borderColor = 'black'; 
+        holdCvs.style.borderColor = 'black';
         // ctxHold.style.borderColor = 'black';
     }
     theme = !theme;
