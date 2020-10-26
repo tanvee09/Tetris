@@ -166,7 +166,7 @@ function drawHeldPiece() {
     for (var r = 0; r < heldPiece.activeTetromino.length; r++) {
         for (var c = 0; c < heldPiece.activeTetromino.length; c++) {
             if (heldPiece.activeTetromino[r][c]) {
-                drawSquareForHeldPiece(startingX + c, 6 * num + startingX + r, heldPiece.color);
+                drawSquareForHeldPiece(startingX + c, startingX + r, heldPiece.color);
             }
         }
     }
