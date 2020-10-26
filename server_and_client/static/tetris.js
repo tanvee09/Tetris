@@ -526,6 +526,7 @@ function changeBoardBackground(color) {
         }
     }
     drawfuturePieces();
+    drawHoldPieceBoard();
 }
 
 
@@ -543,7 +544,7 @@ function themeToggle(){
         document.getElementById('timeOuter').style.color = 'white';       
         cvs.style.borderColor = 'white';
         fp1.style.borderColor = 'white'; 
-        fp2.style.borderColor = 'white';
+        holdCvs.style.borderColor = 'white';
     } else {
         document.body.style.backgroundImage = 'url(./assets/bgTetrisBlocksLight.jpg)';
         VACANT = 'aliceblue';
@@ -553,7 +554,7 @@ function themeToggle(){
         document.getElementById('timeOuter').style.color = 'black'; 
         cvs.style.borderColor = 'black';
         fp1.style.borderColor = 'black'; 
-        fp2.style.borderColor = 'black';
+        holdCvs.style.borderColor = 'black';
     }
     theme = !theme;
 }
