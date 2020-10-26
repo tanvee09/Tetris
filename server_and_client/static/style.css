@@ -8,8 +8,9 @@ body {
 }
 
 #overlay {
+    text-align: center;
     text-shadow: gold 0px 0px 10px;
-    padding-left: 45%;
+    padding-left: 1%;
     padding-top: 20%;
     font-size: xx-large;
     color: white;
