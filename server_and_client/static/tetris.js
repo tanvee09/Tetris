@@ -157,19 +157,19 @@ function drawHoldPieceBoard() {
 }
 
 
-// // Draw held piece
-// function drawHeldPiece(heldPiece) {
-//     drawHoldPieceBoard();
-//     let startingX = (5 - heldPiece.activeTetromino.length)/2;
-//     let startingY = (5 - heldPiece.activeTetromino.length)/2;
-//     for (var r = 0; r < heldPiece.activeTetromino.length; r++) {
-//         for (var c = 0; c < heldPiece.activeTetromino.length; c++) {
-//             if (heldPiece.activeTetromino[r][c]) {
-//                 drawSquareForHeldPiece(startingX + c, 6 * num + startingX + r, heldPiece.color);
-//             }
-//         }
-//     }
-// }
+// Draw held piece
+function drawHeldPiece(heldPiece) {
+    drawHoldPieceBoard();
+    let startingX = (5 - heldPiece.activeTetromino.length)/2;
+    let startingY = (5 - heldPiece.activeTetromino.length)/2;
+    for (var r = 0; r < heldPiece.activeTetromino.length; r++) {
+        for (var c = 0; c < heldPiece.activeTetromino.length; c++) {
+            if (heldPiece.activeTetromino[r][c]) {
+                drawSquareForHeldPiece(startingX + c, 6 * num + startingX + r, heldPiece.color);
+            }
+        }
+    }
+}
 
 
 
