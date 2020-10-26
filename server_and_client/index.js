@@ -14,14 +14,14 @@ app.get("/", async(req, res) => {
     res.render("index");
 });
 
-
+var user_id;
 // Add scores
 app.post("/", async(req, res) => {
     const { nameInp, scoreInp, timeInp } = req.body;
     let errors = [];
     console.log(nameInp + ',' + scoreInp + ',' + timeInp);
     if (!nameInp) {
-        errors.push({ message: "Please enter name."});
+        errors.push({ message: "Please enter name." });
     }
 
     if (errors.length > 0) {
@@ -30,17 +30,17 @@ app.post("/", async(req, res) => {
 
     pool.query(
         `INSERT INTO scores_test (name, score, time_taken)
-         VALUES ($1, $2, $3) RETURNING id, name;`,
-        [nameInp, scoreInp, timeInp],
+         VALUES ($1, $2, $3) RETURNING id, name;`, [nameInp, scoreInp, timeInp],
         (err, results) => {
             if (err) {
                 console.log(err);
             } else {
+
+                user_id = results.rows[0].id;
                 pool.query(
                     `UPDATE scores_test
                      SET name=$1
-                     WHERE id=$2;`,
-                    [results.rows[0].name + '#' + results.rows[0].id, results.rows[0].id],
+                     WHERE id=$2;`, [results.rows[0].name + '#' + results.rows[0].id, results.rows[0].id],
                     (err, results) => {
                         if (err) {
                             console.log(err);
@@ -49,7 +49,7 @@ app.post("/", async(req, res) => {
                             res.redirect("/scoreboard");
                         }
                     }
-                );  
+                );
             }
         }
     );
@@ -59,14 +59,14 @@ app.post("/", async(req, res) => {
 app.get("/scoreboard", async(req, res) => {
     pool.query(
         `SELECT ROW_NUMBER() OVER (ORDER BY score DESC, time_taken ASC)
-         AS rank, name, score, time_taken FROM scores_test;`,
-        [],
+         AS rank, name, score, time_taken FROM scores_test;`, [],
         (err, results) => {
             if (err) {
                 console.log(err);
             } else {
+                console.log(user_id);
                 console.log(results.rows);
-                res.render("scoreboard", { entries: results.rows });
+                res.render("scoreboard", { entries: results.rows, USER_ID: user_id });
             }
         }
     );
