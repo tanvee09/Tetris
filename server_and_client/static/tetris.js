@@ -32,6 +32,7 @@ const FP_COLS = 5;
 const HOLD_COLS = 5;
 const HOLD_ROWS = 5;
 
+
 const PIECES = [
     [Cleaveland, 'red'],
     [RhodeIsland, 'green'],
@@ -49,6 +50,7 @@ let board = [];
 var score = 0;
 
 let gameOver = false;
+var heldPiecePresent = false;
 
 var mins = 0, secs = 0, decisecs = 0;
 
@@ -346,6 +348,7 @@ Piece.prototype.moveRight = function() {
 }
 
 Piece.prototype.hold = function(){
+    heldPiecePresent = true;
     heldPiece = p;
     this.unDraw();
     drawHeldPiece(p);
@@ -476,6 +479,7 @@ function startNewGame() {
 
     paused = false;
     gameOver = false;
+    heldPiecePresent = false;
 
     for (var r = 0; r < ROW; r++) {
         board[r] = [];
@@ -529,6 +533,9 @@ function changeBoardBackground(color) {
         }
     }
     drawfuturePieces();
+    drawHoldPieceBoard();
+    if (heldPiecePresent)
+        drawHeldPiece();
 }
 
 
@@ -546,7 +553,7 @@ function themeToggle(){
         document.getElementById('timeOuter').style.color = 'white';       
         cvs.style.borderColor = 'white';
         fp1.style.borderColor = 'white'; 
-        fp2.style.borderColor = 'white';
+        holdCvs.style.borderColor = 'white';
     } else {
         document.body.style.backgroundImage = 'url(./assets/bgTetrisBlocksLight.jpg)';
         VACANT = 'aliceblue';
@@ -555,8 +562,8 @@ function themeToggle(){
         document.getElementById('scoreOuter').style.color = 'black'; 
         document.getElementById('timeOuter').style.color = 'black'; 
         cvs.style.borderColor = 'black';
-        fp1.style.borderColor = 'black'; 
-        fp2.style.borderColor = 'black';
+        holdCvs.style.borderColor = 'black'; 
+        // ctxHold.style.borderColor = 'black';
     }
     theme = !theme;
 }
