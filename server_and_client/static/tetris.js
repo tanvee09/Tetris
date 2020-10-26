@@ -157,9 +157,9 @@ function drawHoldPieceBoard() {
     }
 }
 
-
+var heldPiece;
 // Draw held piece
-function drawHeldPiece(heldPiece) {
+function drawHeldPiece() {
     drawHoldPieceBoard();
     let startingX = (5 - heldPiece.activeTetromino.length)/2;
     let startingY = (5 - heldPiece.activeTetromino.length)/2;
@@ -346,7 +346,9 @@ Piece.prototype.moveRight = function() {
 }
 
 Piece.prototype.hold = function(){
+    heldPiece = p;
     this.unDraw();
+    drawHeldPiece(p);
     p = futurePieces.shift();
     generateRandomPieces();
     drawfuturePieces();
