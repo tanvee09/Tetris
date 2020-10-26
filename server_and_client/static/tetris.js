@@ -1,4 +1,5 @@
-const cvs = document.getElementById('tetris');
+try {
+    const cvs = document.getElementById('tetris');
 const ctx = cvs.getContext('2d');
 const scoreElement = document.getElementById('score');
 var timeElement = document.getElementById('time');
@@ -7,8 +8,8 @@ var timeElement = document.getElementById('time');
 const fp1 = document.getElementById('futurePiece1');
 const ctxfp1 = fp1.getContext('2d');
 
-const fp2 = document.getElementById('hold');        //this is the area for help piece
-const ctxfp2 = fp2.getContext('2d'); 
+const holdCvs = document.getElementById('hold');        //this is the area for help piece
+const ctxHold = holdCvs.getContext('2d'); 
 
 // const fp2 = document.getElementById('futurePiece2');
 // const ctxfp2 = fp2.getContext('2d');
@@ -26,6 +27,9 @@ var lineColor = 'black';
 
 const FP_ROWS = 17;
 const FP_COLS = 5;
+
+const HOLD_COLS = 5;
+const HOLD_ROWS = 5;
 
 const PIECES = [
     [Cleaveland, 'red'],
@@ -127,6 +131,47 @@ function drawAllNextPiecesBoard() {
         }
     }
 }
+
+
+
+
+
+// draw squares for hold piece board
+function drawSquareForHeldPiece(x, y, color) {
+    ctxHold.fillStyle = color;
+    ctxHold.fillRect(x * SQ, y * SQ, SQ, SQ);
+    if (color != VACANT) {
+        ctxHold.strokeStyle = lineColor;
+        ctxHold.strokeRect(x * SQ, y * SQ, SQ, SQ);
+    }
+}
+
+
+// Draw hold piece board
+function drawHoldPieceBoard() {
+    for (var r = 0; r < HOLD_ROWS; r++) {
+        for (var c = 0; c < HOLD_COLS; c++) {
+            drawSquareForHeldPiece(c, r, VACANT);
+        }
+    }
+}
+
+
+// // Draw held piece
+// function drawHeldPiece(heldPiece) {
+//     drawHoldPieceBoard();
+//     let startingX = (5 - heldPiece.activeTetromino.length)/2;
+//     let startingY = (5 - heldPiece.activeTetromino.length)/2;
+//     for (var r = 0; r < heldPiece.activeTetromino.length; r++) {
+//         for (var c = 0; c < heldPiece.activeTetromino.length; c++) {
+//             if (heldPiece.activeTetromino[r][c]) {
+//                 drawSquareForHeldPiece(startingX + c, 6 * num + startingX + r, heldPiece.color);
+//             }
+//         }
+//     }
+// }
+
+
 
 
 function generateRandomPieces() {
@@ -439,7 +484,7 @@ function startNewGame() {
     drawBoard();
 
     drawAllNextPiecesBoard();
-
+    drawHoldPieceBoard();
 
     //create the random piece array initiate a piece
     futurePieces = [];
@@ -574,4 +619,8 @@ function scoreFormSubmit() {
     scoreInp.value = score;
     timeInp.value = timeElapsed;
     formElt.submit();
+}
+
+}catch(err) {
+    alert(err);
 }
