@@ -14,7 +14,7 @@ app.get("/", async(req, res) => {
     res.render("index");
 });
 
-var user_id;
+
 // Add scores
 app.post("/", async(req, res) => {
     const { nameInp, scoreInp, timeInp } = req.body;
@@ -46,7 +46,7 @@ app.post("/", async(req, res) => {
                             console.log(err);
                         } else {
                             console.log(results.rows);
-                            res.redirect("/scoreboard");
+                            res.redirect(`/scoreboard${user_id}`);
                         }
                     }
                 );
@@ -56,6 +56,46 @@ app.post("/", async(req, res) => {
 });
 
 
+// Show scoreboard with rank +- 5 of given row id
+app.get("/scoreboard:id", async(req, res) => {
+    const id = req.params.id;
+    console.log(id);
+    pool.query(
+        `DROP VIEW IF EXISTS scoreboard;`,[],
+        (err, results) => {
+            if (err) {
+                console.log(err);
+            } else {
+                pool.query(
+                    `CREATE VIEW scoreboard as (SELECT ROW_NUMBER() OVER (ORDER BY score DESC, time_taken ASC)
+                     AS rank, id, name, score, time_taken FROM scores_test);`, [],
+                    (err, results) => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            pool.query(
+                                `SELECT rank, name, score, time_taken FROM scoreboard
+                                 WHERE rank >= ((SELECT rank FROM scoreboard WHERE id = $1) - 5) AND rank <= ((SELECT rank FROM scoreboard WHERE id = $1) + 5)
+                                 ORDER BY rank;`, [id],
+                                (err, results) => {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        console.log(results.rows);
+                                        res.render("scoreboard", { entries: results.rows, USER_ID: id });
+                                    }
+                                }
+                            );
+                        }
+                    }
+                );
+            }
+        }
+    );   
+});
+
+
+// Show entire scoreboard
 app.get("/scoreboard", async(req, res) => {
     pool.query(
         `SELECT ROW_NUMBER() OVER (ORDER BY score DESC, time_taken ASC)
@@ -66,7 +106,7 @@ app.get("/scoreboard", async(req, res) => {
             } else {
                 console.log(user_id);
                 console.log(results.rows);
-                res.render("scoreboard", { entries: results.rows, USER_ID: user_id });
+                res.render("scoreboard", { entries: results.rows, USER_ID: 0 });
             }
         }
     );
