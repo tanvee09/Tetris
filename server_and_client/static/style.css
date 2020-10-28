@@ -130,6 +130,12 @@ body {
 	position: absolute;
 }
 
+#volume-controls {
+	position: absolute;
+	right: 1rem;
+	top: 40%;
+}
+
 #vol-control {
     writing-mode: bt-lr; /* IE */
     -webkit-appearance: slider-vertical; /* WebKit */
@@ -137,9 +143,6 @@ body {
     height: 175px;
     padding: 0 5px;
 	opacity: 0.4;
-	position: absolute;
-	right: 1rem;
-	top: 40%;
 }
 
 #vol-control:hover {
@@ -148,4 +151,13 @@ body {
 
 #vol-control:focus {
 	outline: none;
+}
+
+.fa-volume-up, .fa-volume-mute {
+	color: blue;
+}
+
+.fa-volume-up:hover, .fa-volume-mute:hover {
+	color: rgb(4, 4, 37);
+	cursor: pointer;
 }

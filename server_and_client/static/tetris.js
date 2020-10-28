@@ -591,6 +591,23 @@ function setVolume (val) {
     gameVolume = document.getElementById("song").volume;
 }
 
+function musicOn() {
+    var player = document.getElementById('song');
+    player.volume = 0.5;
+    gameVolume = 0.5;
+    document.getElementById('mutebtn').style.display = '';
+    document.getElementById('unmutebtn').style.display = 'none';
+    document.getElementById('vol-control').value = 50;
+}
+
+function musicOff() {
+    var player = document.getElementById('song');
+    player.volume = 0;
+    gameVolume = 0;
+    document.getElementById('mutebtn').style.display = 'none';
+    document.getElementById('unmutebtn').style.display = '';
+    document.getElementById('vol-control').value = 0;
+}
 
 // Implement timer 
 setInterval(async function(){ 

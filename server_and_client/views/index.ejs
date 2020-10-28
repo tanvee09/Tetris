@@ -110,8 +110,14 @@
 	<audio id="gameover" src="./music/gameover.wav" preload="auto"></audio>
 	<audio id="blockLock" src="./music/fall.wav" preload="auto"></audio>
 
-    <input id="vol-control" type="range" min="0" max="100" step="1" onload="setVolume(this.value)" oninput="setVolume(this.value)" onchange="setVolume(this.value)">
-
+    <div id="volume-controls">
+        <input id="vol-control" type="range" min="0" max="100" step="1" onload="setVolume(this.value)" oninput="setVolume(this.value)" onchange="setVolume(this.value)"><br>
+        <span>
+            <i class='fas fa-volume-up' style="font-size: 20px;" id="mutebtn" onclick="musicOff()"></i>
+            <i class='fas fa-volume-mute' style="font-size: 20px; display: none;" id="unmutebtn" onclick="musicOn()"></i>
+        </span>
+    </div>
+    
     <script src="./tetrominoes.js"></script>
     <script src="./tetris.js"></script>
 

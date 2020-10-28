@@ -11,18 +11,9 @@
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./gameOver.css">
     <link rel="stylesheet" href="./scoreBoard.css">
-    <style>
-        td {
-            font-size: larger;
-        }
-        
-        .table-hover tbody tr:hover td {
-            background: rgb(224, 224, 36);
-        }
-    </style>
 </head>
 
-<body style="color: white;">
+<body>
 
     <center>
         <h1>Scoreboard</h1>
@@ -38,7 +29,7 @@
                 <th>Time Taken</th>
             </tr>
         </thead>
-        <tbody style="color:white;">
+        <tbody>
             <% entries.forEach(entry => { %>
                 <% if(entry.name.split('#')[1] == USER_ID){ %>
                     <tr class="bg-danger">

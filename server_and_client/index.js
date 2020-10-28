@@ -104,7 +104,6 @@ app.get("/scoreboard", async(req, res) => {
             if (err) {
                 console.log(err);
             } else {
-                console.log(user_id);
                 console.log(results.rows);
                 res.render("scoreboard", { entries: results.rows, USER_ID: 0 });
             }
