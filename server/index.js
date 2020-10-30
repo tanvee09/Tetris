@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
 const pool = require("./db");
+const socketio = require('socket.io');
+
+var server = require('http').createServer(app);
 
 app.set("view engine", "ejs");
 app.use(express.json());
@@ -10,8 +13,20 @@ app.use(express.static(`${__dirname}/../client/static`));
 app.set('views', `${__dirname}/../client/views`);
 
 
+
 app.get("/", async(req, res) => {
     res.render("index");
+});
+
+app.get("/multiplayer", async(req, res) => {
+    const io = socketio(server);
+    io.on('connection', (sock) => {
+        sock.emit('message', 'You are connected!');
+
+        sock.on('message', (text) => io.emit('message', text));
+    });
+
+    res.render("chat");
 });
 
 
@@ -113,6 +128,6 @@ app.get("/scoreboard", async(req, res) => {
 
 
 
-app.listen(3000, () => {
+server.listen(3000, () => {
     console.log('Server started on port 3000');
 });
