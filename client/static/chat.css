@@ -1,10 +1,10 @@
-body {
+/* body {
     font-family: "Helvetica Neue", sans-serif;
     margin: 0;
     padding: 0;
-}
+} */
 
-input {
+#chat {
     outline: none;
     font-size: 1.0rem;
     padding: 0 5px;

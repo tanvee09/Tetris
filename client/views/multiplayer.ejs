@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Tetris</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./gameOver.css">
+    <link rel="stylesheet" href="./chat.css">
+</head>
+
+<body>
+    
+                   
+    <div class="toggle-wrapper">
+        <input type="checkbox" name="toggle" class="toggle" id="themeToggle">
+        <label for="toggle" class="toggle-body">
+          <span class="thumb"></span>
+        </label>
+    </div>
+
+    <div id="endOverlay">
+        <% if(typeof errors != 'undefined') { %>
+            <% errors.forEach(error => { %>
+                <div class="alert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                    <%=error.message %>
+                </div>
+            <% }) %>
+        <% } %>
+        <div id="gameOverOverlay">
+            <p id="gameOverText">GAME OVER</p>
+            <img src="./assets/hourglass.gif" height="100px" style="margin-top: -3.5rem;"><br>
+            <div id="finalScore">
+                Your Score: <p id="scoreDisp" style="display: inline;"></p>
+            </div>
+    
+            <button type="button" class="btns" onclick="showForm()">Save Score</button><br>
+            <button type="button" class="btns" onclick="startNewGame()">Play Again</button>
+            <form id="scoreForm" method="POST" action="/">
+                <input type="text" placeholder="Enter Name" id="nameInp" name="nameInp"><br>
+                <input type="number" id="scoreInp" name="scoreInp" style="display: none;"><br>
+                <input type="number" id="timeInp" name="timeInp" style="display: none;"><br>
+                <button type="button" class="formbtn" onclick="scoreFormSubmit()">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container" id="gameDiv">
+        <div id="overlay" onclick=togglePause()>Game Paused</div>
+        <div class="row">
+            <div class="col-2 align-self-center text-right">
+                <canvas id="futurePiece1" width="150" height="510" style="border: 5px solid black;">
+                </canvas> 
+                
+                <button class="btn btn-success btn-lg my-2" type="button" id="togglePause" style="display: none;">Play/Pause</button>
+                <button class="btn btn-success btn-lg my-2" type="button" id="newGame" style="display: none;">New Game</button>            
+            </div>
+
+            <div class="col-6 text-center">
+                <canvas id="tetris" width="300" height="600" style="border: 5px solid black;">
+                </canvas>
+            </div>
+
+            <div class="col-4 align-self-center text-center">
+                <canvas id="hold" width="150" height="150" style="border: 5px solid black;">
+                </canvas>
+                <br>
+                <div id="timeOuter">
+                    TIME<br>
+                    <div id="time">0</div>
+                </div>
+                <br>
+                <button class="btn btn-warning btn-lg my-2" id="shuffleButton" type="button">Next Track</button>
+                <div class="controls-wrapper" style="text-align: left;">
+                    <ul id="events"></ul>
+                    <div class="controls">
+                        <div class="chat-wrapper">
+                            <form id="chat-form">
+                                <input type="text" autocomplete="off" id="chat" title="chat"/>
+                                <button id="say">Say</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-12">
+                <div id="scoreOuter">
+                    Score:
+                    <div id="score">0</div>
+                </div>
+            </div>
+        </div>
+    
+        
+    </div>
+
+    
+
+    <div id="soundTrack">
+        <audio loop autoplay id="song"><source src="music/song2.mp3" type='audio/ogg'>
+            Your browser does not support the audio element.
+        </audio>
+        
+    </div>
+
+    <!-- Preloading gameAudios-->
+	<audio id="gameover" src="./music/gameover.wav" preload="auto"></audio>
+	<audio id="blockLock" src="./music/fall.wav" preload="auto"></audio>
+
+    <div id="volume-controls">
+        <input id="vol-control" type="range" min="0" max="100" step="1" onload="setVolume(this.value)" oninput="setVolume(this.value)" onchange="setVolume(this.value)"><br>
+        <span>
+            <i class='fas fa-volume-up' style="font-size: 20px;" id="mutebtn" onclick="musicOff()"></i>
+            <i class='fas fa-volume-mute' style="font-size: 20px; display: none;" id="unmutebtn" onclick="musicOn()"></i>
+        </span>
+    </div>
+    
+    <script src="./tetrominoes.js"></script>
+    <script src="./tetris.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="chat.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

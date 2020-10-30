@@ -26,7 +26,7 @@ app.get("/multiplayer", async(req, res) => {
         sock.on('message', (text) => io.emit('message', text));
     });
 
-    res.render("chat");
+    res.render("multiplayer");
 });
 
 
