@@ -6,8 +6,8 @@ app.set("view engine", "ejs");
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static("static"));
-
+app.use(express.static(`${__dirname}/../client/static`));
+app.set('views', `${__dirname}/../client/views`);
 
 
 app.get("/", async(req, res) => {
