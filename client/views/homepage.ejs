@@ -20,9 +20,13 @@
             <a href="/"><button class="formbtn" type="button">Single Player Game</button></a> <br>
             <a href="/multiplayer"><button class="formbtn" type="button">Create Room</button></a> <br>
             <button class="formbtn" type="button" onclick="document.getElementById('#joinRoomForm').style.display='initial'">Join Room</button>
-            <form id="joinRoomForm">
-                <input type="text" placeholder="Room Number" id="roomInp" name="roomInp" style="width: 20rem;">
-                <button class="formbtn" type="button" style="width: 4rem;" id="roomInpButton">&rarr;</button>
+            <form id="createRoomForm">
+                <input type="text" placeholder="Room Number" id="createRoomInp" name="roomInp" style="width: 20rem;">
+                <button class="formbtn" type="button" style="width: 4rem;" id="createRoomInpButton">&rarr;</button>
+            </form>
+            <form id="JoinRoomForm">
+                <input type="text" placeholder="Room Number" id="joinRoomInp" name="roomInp" style="width: 20rem;">
+                <button class="formbtn" type="button" style="width: 4rem;" id="joinRoomInpButton">&rarr;</button>
             </form>
         </div>
     </div>

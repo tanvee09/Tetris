@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const pool = require("./db");
 const socketio = require('socket.io');
+const { v1: uuid } = require('uuid');
+const _ = require('lodash');
 
 var server = require('http').createServer(app);
 
@@ -19,7 +21,7 @@ io.on('connection', (sock) => {
 
     sock.on('message', (text) => io.emit('message', text));
 });
-    
+
 app.get("/", async(req, res) => {
     res.render("index");
 });
@@ -28,9 +30,136 @@ app.get("/tetris", async(req, res) => {
     res.render("homepage");
 });
 
+const rooms = {};
+
+
+/**
+ * Will connect a socket to a specified room
+ * @param socket A connected socket.io socket
+ * @param room An object that represents a room from the `rooms` instance variable object
+ */
+const joinRoom = (socket, room) => {
+    room.sockets.push(socket);
+    socket.join(room.id, () => {
+        // store the room id in the socket for future use
+        socket.roomId = room.id;
+        console.log(socket.id, "Joined", room.id);
+    });
+};
+
+
+
+/**
+ * The starting point for a user connecting to our lovely little multiplayer
+ * server!
+ */
+io.on('connection', (socket) => {
+
+    // give each socket a random identifier so that we can determine who is who when
+    // we're sending messages back and forth!
+    socket.id = uuid();
+    console.log('a user connected');
+
+    /**
+     * Lets us know that players have joined a room and are waiting in the waiting room.
+     */
+    socket.on('ready', () => {
+        console.log(socket.id, "is ready!");
+        const room = rooms[socket.roomId];
+        socket.emit('roomL', room.sockets.length);
+        // when we have two players... START THE GAME!
+        if (room.sockets.length >= 2) {
+            // tell each player to start the game.
+            for (const client of room.sockets) {
+                client.emit('initGame');
+            }
+        }
+    });
+
+    /**
+     * The game has started! Give everyone their default values and tell each client
+     * about each player
+     * @param data we don't actually use that so we can ignore it.
+     * @param callback Respond back to the message with information about the game state
+     */
+
+
+
+    /* Gets fired when someone wants to get the list of rooms. respond with the list of room names.
+     */
+    socket.on('getRoomNames', (data, callback) => {
+        const roomNames = [];
+        for (const id in rooms) {
+            const { name } = rooms[id];
+            const room = { name, id };
+            roomNames.push(room);
+        }
+
+        callback(roomNames);
+    });
+
+    /**
+     * Gets fired when a user wants to create a new room.
+     */
+    socket.on('createRoom', (roomName) => {
+        const room = {
+            id: uuid(), // generate a unique id for the new room, that way we don't need to deal with duplicates.
+            name: roomName,
+            sockets: []
+        };
+        rooms[room.id] = room;
+        // have the socket join the room they've just created.
+        joinRoom(socket, room);
+        socket.emit('roomId', room.id);
+    });
+
+    /**
+     * Gets fired when a player has joined a room.
+     */
+    socket.on('joinRoom', (roomId, callback) => {
+        const room = rooms[roomId];
+        joinRoom(socket, room);
+    });
+
+    /**
+     * Gets fired when a player leaves a room.
+     */
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.get("/multiplayer", async(req, res) => {
     res.render("multiplayer");
 });
+
+
+
+
+
+
+
+
+
 
 
 // Add scores
@@ -75,7 +204,7 @@ app.get("/scoreboard:id", async(req, res) => {
     const id = req.params.id;
     console.log(id);
     pool.query(
-        `DROP VIEW IF EXISTS scoreboard;`,[],
+        `DROP VIEW IF EXISTS scoreboard;`, [],
         (err, results) => {
             if (err) {
                 console.log(err);
@@ -105,7 +234,7 @@ app.get("/scoreboard:id", async(req, res) => {
                 );
             }
         }
-    );   
+    );
 });
 
 
