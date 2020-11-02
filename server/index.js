@@ -12,8 +12,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(`${__dirname}/../client/static`));
 app.set('views', `${__dirname}/../client/views`);
 
+const io = socketio(server);
 
+io.on('connection', (sock) => {
+    sock.emit('message', 'You are connected!');
 
+    sock.on('message', (text) => io.emit('message', text));
+});
+    
 app.get("/", async(req, res) => {
     res.render("index");
 });
@@ -23,13 +29,6 @@ app.get("/tetris", async(req, res) => {
 });
 
 app.get("/multiplayer", async(req, res) => {
-    const io = socketio(server);
-    io.on('connection', (sock) => {
-        sock.emit('message', 'You are connected!');
-
-        sock.on('message', (text) => io.emit('message', text));
-    });
-
     res.render("multiplayer");
 });
 

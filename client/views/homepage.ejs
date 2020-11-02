@@ -6,13 +6,10 @@
     <title>Tetris</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-    <link rel="stylesheet" href="./gameOver.css"/>
-    <link rel="stylesheet" href="./style.css"/>
+    <link rel="stylesheet" href="./gameOver.css" />
+    <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
@@ -25,11 +22,13 @@
             <button class="formbtn" type="button" onclick="document.getElementById('#joinRoomForm').style.display='initial'">Join Room</button>
             <form id="joinRoomForm">
                 <input type="text" placeholder="Room Number" id="roomInp" name="roomInp" style="width: 20rem;">
-                <button class="formbtn" type="button" style="width: 4rem;">&rarr;</button>
+                <button class="formbtn" type="button" style="width: 4rem;" id="roomInpButton">&rarr;</button>
             </form>
         </div>
     </div>
 
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
