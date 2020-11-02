@@ -18,6 +18,10 @@ app.get("/", async(req, res) => {
     res.render("index");
 });
 
+app.get("/tetris", async(req, res) => {
+    res.render("homepage");
+});
+
 app.get("/multiplayer", async(req, res) => {
     const io = socketio(server);
     io.on('connection', (sock) => {
@@ -36,11 +40,7 @@ app.post("/", async(req, res) => {
     let errors = [];
     console.log(nameInp + ',' + scoreInp + ',' + timeInp);
     if (!nameInp) {
-        errors.push({ message: "Please enter name." });
-    }
-
-    if (errors.length > 0) {
-        return res.render("index", { errors, nameInp, scoreInp, timeInp });
+        nameInp = "anonymous";
     }
 
     pool.query(

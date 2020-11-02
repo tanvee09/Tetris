@@ -79,7 +79,7 @@
     display: none;
 }
 
-#nameInp {
+#nameInp, #roomInp {
     width: 24rem;
     height: 3.5rem;
     font-size: 22px;
@@ -90,6 +90,6 @@
     color: yellow;
 }
 
-#nameInp:focus {
+#nameInp:focus, #roomInp:focus {
     outline: none;
 }
