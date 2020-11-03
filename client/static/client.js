@@ -2,26 +2,20 @@ try {
     (() => {
 
         const sock = io();
+        var roomId;
 
         document.getElementById('createRoomInpButton').addEventListener('click', () => {
-            var resp = window.prompt("Your username: ");
-            sock.emit('setUsername', resp);
-            sock.on('getUsername', (arg) => {
-                alert(arg);
-            });
             sock.emit('createRoom', (document.getElementById('createRoomInp').value));
             sock.on('roomId', (arg) => {
-                alert(arg);
+                roomId = arg;
+                alert('Share this room id: ' + arg);
+                alert('Game will start as soon as other person joins!');
             });
         });
 
         document.getElementById('joinRoomInpButton').addEventListener('click', () => {
-            var resp = window.prompt("Your username: ");
-            sock.emit('setUsername', resp);
-            sock.on('getUsername', (arg) => {
-                alert(arg);
-            });
-            alert(document.getElementById('joinRoomInp').value);
+            // alert(document.getElementById('joinRoomInp').value);
+            roomId = document.getElementById('joinRoomInp').value;
             sock.emit('joinRoom', (document.getElementById('joinRoomInp').value));
             sock.emit('ready');
         });
@@ -29,15 +23,11 @@ try {
 
         sock.on('initGame', () => {
             alert("Game Started");
-            window.location.href='/multiplayer';
+            window.location.href = '/multiplayer' + roomId;
         });
         sock.on('roomL', (len) => {
             alert(len);
         });
-
-        return {
-            getSocket: function() { return sock;}
-        }
 
     })();
 

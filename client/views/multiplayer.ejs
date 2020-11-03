@@ -26,15 +26,16 @@
         </label>
     </div>
 
+    <% if (room_id) { %>
+        <p id="room_id" style="display: none;"><%= room_id %></p>
+    <% } %>
+
+    <div id="usernameInputOverlay">
+        <input type="text" id="username">
+        <button type="button" id="usernameSubmitButton">Enter</button>
+    </div>
+
     <div id="endOverlay">
-        <% if(typeof errors != 'undefined') { %>
-            <% errors.forEach(error => { %>
-                <div class="alert">
-                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-                    <%=error.message %>
-                </div>
-            <% }) %>
-        <% } %>
         <div id="gameOverOverlay">
             <p id="gameOverText">GAME OVER</p>
             <img src="./assets/hourglass.gif" height="100px" style="margin-top: -3.5rem;"><br>

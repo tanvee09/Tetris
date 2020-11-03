@@ -16,12 +16,6 @@ app.set('views', `${__dirname}/../client/views`);
 
 const io = socketio(server);
 
-io.on('connection', (sock) => {
-    sock.emit('message', 'You are connected!');
-
-    sock.on('message', (text) => io.emit('message', text));
-});
-
 app.get("/", async(req, res) => {
     res.render("index");
 });
@@ -45,6 +39,7 @@ const joinRoom = (socket, room) => {
         socket.roomId = room.id;
         console.log(socket.id, "Joined", room.id);
     });
+    console.log(room.sockets.length);
 };
 
 
@@ -83,6 +78,7 @@ io.on('connection', (socket) => {
             for (const client of room.sockets) {
                 client.emit('initGame');
             }
+            room.sockets = [];
         }
     });
 
@@ -114,6 +110,11 @@ io.on('connection', (socket) => {
 
     //Gets fired when a player has joined a room.
     socket.on('joinRoom', (roomId, callback) => {
+        console.log("Available room ids: ")
+        for (i in rooms) {
+            console.log(i);
+        }
+        console.log('Trying to connect to: ' + roomId);
         const room = rooms[roomId];
         joinRoom(socket, room);
     });
@@ -128,22 +129,10 @@ io.on('connection', (socket) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-app.get("/multiplayer", async(req, res) => {
-    res.render("multiplayer");
+app.get("/multiplayer:roomid", async(req, res) => {
+    const { roomid } = req.params;
+    console.log("Room id: " + roomid);
+    res.render("multiplayer", {room_id: roomid});
 });
 
 
