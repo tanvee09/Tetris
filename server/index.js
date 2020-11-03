@@ -60,6 +60,16 @@ io.on('connection', (socket) => {
     socket.id = uuid();
     console.log('a user connected');
 
+    socket.emit('message', 'You are connected!');
+
+    socket.on('message', (text) => io.emit('message', socket.name + ': ' + text));
+
+    socket.on('setUsername', (text) => {
+        socket.name = text;
+        socket.emit('getUsername', socket.name);
+    });
+
+
     /**
      * Lets us know that players have joined a room and are waiting in the waiting room.
      */
@@ -76,17 +86,8 @@ io.on('connection', (socket) => {
         }
     });
 
-    /**
-     * The game has started! Give everyone their default values and tell each client
-     * about each player
-     * @param data we don't actually use that so we can ignore it.
-     * @param callback Respond back to the message with information about the game state
-     */
 
-
-
-    /* Gets fired when someone wants to get the list of rooms. respond with the list of room names.
-     */
+    //Gets fired when someone wants to get the list of rooms. respond with the list of room names.
     socket.on('getRoomNames', (data, callback) => {
         const roomNames = [];
         for (const id in rooms) {
@@ -98,9 +99,7 @@ io.on('connection', (socket) => {
         callback(roomNames);
     });
 
-    /**
-     * Gets fired when a user wants to create a new room.
-     */
+    //Gets fired when a user wants to create a new room.
     socket.on('createRoom', (roomName) => {
         const room = {
             id: uuid(), // generate a unique id for the new room, that way we don't need to deal with duplicates.
@@ -113,17 +112,12 @@ io.on('connection', (socket) => {
         socket.emit('roomId', room.id);
     });
 
-    /**
-     * Gets fired when a player has joined a room.
-     */
+    //Gets fired when a player has joined a room.
     socket.on('joinRoom', (roomId, callback) => {
         const room = rooms[roomId];
         joinRoom(socket, room);
     });
 
-    /**
-     * Gets fired when a player leaves a room.
-     */
 });
 
 
