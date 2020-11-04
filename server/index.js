@@ -95,10 +95,30 @@ io.on('connection', (socket) => {
         callback(roomNames);
     });
 
+    function uniqueRoomID(){
+        var rooms = [];
+        var room;
+        function codeCreate(){
+            var i;
+            var s = '';
+            var num;
+            for (i=0;i<=5;i++){
+                num = Math.random() * 25;
+                s += String.fromCharCode(65+num);
+            }
+            return s;
+        }
+        room = codeCreate();
+        while (rooms.includes(room)){
+            room = codeCreate();
+        }
+        return room;
+    }
+
     //Gets fired when a user wants to create a new room.
     socket.on('createRoom', (roomName) => {
         const room = {
-            id: uuid(), // generate a unique id for the new room, that way we don't need to deal with duplicates.
+            id: uniqueRoomID(), // generate a unique id for the new room, that way we don't need to deal with duplicates.
             name: roomName,
             sockets: [],
             scores: []
