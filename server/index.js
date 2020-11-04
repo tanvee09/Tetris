@@ -42,6 +42,23 @@ const joinRoom = (socket, room) => {
     console.log(room.sockets.length);
 };
 
+const leaveRooms = (socket) => {
+    const roomsToDelete = [];
+    for (const id in rooms) {
+        const room = rooms[id];
+        if (room.sockets.includes(socket)) {
+            socket.leave(id);
+            room.sockets = room.sockets.filter((item) => item !== socket);
+        }
+        if (room.sockets.length == 0) {
+            roomsToDelete.push(room);
+        }
+    }
+    for (const room of roomsToDelete) {
+        console.log('Deleting ' + room.id);
+        delete rooms[room.id];
+    }
+};
 
 
 /**
@@ -91,7 +108,6 @@ io.on('connection', (socket) => {
             const room = { name, id };
             roomNames.push(room);
         }
-
         callback(roomNames);
     });
 
@@ -137,14 +153,15 @@ io.on('connection', (socket) => {
         }
         console.log('Trying to connect to: #' + roomId.length + "#");
         const room = rooms[roomId];
-        joinRoom(socket, room);
+        if (room.sockets.length < 2)
+            joinRoom(socket, room);
     });
 
     socket.on('gameOver', ({roomId, username, score}) => {
         console.log('Game over for ' + username);
         room = rooms[roomId];
         room.scores.push({score: Number(score), username: username});
-        if (room.scores.length >= 2) {
+        if (room.scores.length == room.sockets.length) {
             console.log('Game over for both');
             var maxScore = 0;
             for (const i of room.scores) {
@@ -165,6 +182,14 @@ io.on('connection', (socket) => {
             console.log("Max Score is " + maxScore);
             io.emit('winner', {score: maxScore, tie: tie});
         }
+    });
+
+    socket.on('receiveScore', (data) => {
+        io.emit('sendScore', data);
+    });
+
+    socket.on('leaveRoom', () => {
+        leaveRooms(socket);
     });
 
     

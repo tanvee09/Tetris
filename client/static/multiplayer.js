@@ -33,7 +33,6 @@ try {
         var usrname;
 
         document.getElementById('usernameSubmitButton').addEventListener('click', function() {
-            alert('pressed');
             usrname = document.getElementById('username').value;
             // alert(usrname);
             if (usrname != '') {
@@ -71,6 +70,7 @@ try {
             } else {
                 alert('You lost!');
             }
+            sock.emit('leaveRoom');
         });
         
         document.querySelector('#chat-form').addEventListener('submit', onChatSubmitted(sock));
@@ -113,6 +113,18 @@ try {
                 clearInterval();
             }
         }, 100);
+
+        setInterval(async function() {
+            if (!gameOver && !paused) {
+                sock.emit('receiveScore', ({username: usrname, score: scoreElement.innerHTML}));
+            }
+        }, 100);
+
+        sock.on('sendScore', ({score, username}) => {
+            if (username != usrname) {
+                oppScore.innerHTML = score;
+            }
+        });
     })();
     
 
