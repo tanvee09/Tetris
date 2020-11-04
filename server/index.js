@@ -119,6 +119,11 @@ io.on('connection', (socket) => {
         joinRoom(socket, room);
     });
 
+    socket.on('time', () => {
+        const displayTime = document.getElementById('time');
+        socket.emit('timeIs', displayTime);
+    })
+
 });
 
 
@@ -132,7 +137,7 @@ io.on('connection', (socket) => {
 app.get("/multiplayer:roomid", async(req, res) => {
     const { roomid } = req.params;
     console.log("Room id: " + roomid);
-    res.render("multiplayer", {room_id: roomid});
+    res.render("multiplayer", { room_id: roomid });
 });
 
 
