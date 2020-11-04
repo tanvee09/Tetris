@@ -131,10 +131,19 @@ io.on('connection', (socket) => {
                 if (i.score > maxScore)
                     maxScore = i.score;
             }
+            var countMax = 0;
+            for (const i of room.scores) {
+                if (i.score == maxScore)
+                    countMax += 1;
+            }
+            var tie = false;
+            if (countMax == 2) {
+                tie = true;
+            }
             room.sockets = [];
             room.scores = [];
             console.log("Max Score is " + maxScore);
-            io.emit('winnerScore', maxScore);
+            io.emit('winner', {score: maxScore, tie: tie});
         }
     });
 

@@ -58,9 +58,16 @@ try {
 
         sock.on('message', log);
 
-        sock.on('winnerScore', (score) => {
+        sock.on('winner', ({score, tie}) => {
+            if (!gameOver) {
+                gameOver = true;
+                alert('Time Up!');
+            }
             if (Number(scoreElement.innerHTML) >= Number(score)) {
-                alert('You won!');
+                if (tie)
+                    alert('There was a tie!');
+                else 
+                    alert('You won!');
             } else {
                 alert('You lost!');
             }
@@ -102,6 +109,7 @@ try {
                 }
             } else if (gameOver && !gameOverSent) {
                 sock.emit('gameOver', {roomId: document.getElementById('room_id').innerHTML, username: username, score: scoreElement.innerHTML});
+                gameOverSent = true;
                 clearInterval();
             }
         }, 100);
