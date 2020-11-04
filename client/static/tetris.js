@@ -3,7 +3,7 @@ var multiplayeMode = false;
 try {
     const cvs = document.getElementById('tetris');
     const ctx = cvs.getContext('2d');
-    const scoreElement = document.getElementById('score');
+    var scoreElement = document.getElementById('score');
     var timeElement = document.getElementById('time');
 
     // instantiating 3 futurePiece Context
@@ -49,7 +49,7 @@ try {
     let board = [];
     var score = 0;
 
-    let gameOver = false;
+    var gameOver = false;
     var heldPiecePresent = false;
 
     var mins = 0,
@@ -77,26 +77,6 @@ try {
             ctxfp1.strokeStyle = lineColor;
             ctxfp1.strokeRect(x * SQ, y * SQ, SQ, SQ);
         }
-
-        // }
-        // if (num == 1) {
-        //     ctxfp2.fillStyle = color;
-        //     ctxfp2.fillRect(x * SQ, y * SQ, SQ, SQ);
-
-        //     if (color != VACANT) {
-        //         ctxfp2.strokeStyle = 'white';
-        //         ctxfp2.strokeRect(x * SQ, y * SQ, SQ, SQ);
-        //     }
-        // }
-        // if (num == 2) {
-        //     ctxfp3.fillStyle = color;
-        //     ctxfp3.fillRect(x * SQ, y * SQ, SQ, SQ);
-
-        //     if (color != VACANT) {
-        //         ctxfp3.strokeStyle = 'white';
-        //         ctxfp3.strokeRect(x * SQ, y * SQ, SQ, SQ);
-        //     }
-        // }
     }
 
 
@@ -245,7 +225,10 @@ try {
 
                     gameOver = true;
                     document.getElementById('scoreDisp').innerHTML = score;
-                    document.getElementById('endOverlay').style.display = '';
+                    if (!multiplayeMode)
+                        document.getElementById('endOverlay').style.display = '';
+                    else
+                        alert('Game Over!');
                     break;
                 }
                 board[this.y + r][this.x + c] = this.color;
@@ -517,7 +500,6 @@ try {
         mins = secs = decisecs = 0;
 
         drop();
-
     }
 
     startNewGame();
@@ -578,11 +560,6 @@ try {
     }
 
 
-    // document.getElementById("themeAlt").addEventListener('click', themealt);
-    // function themealt(){
-    //     document.body.style.backgroundImage = 'url(./assets/background1.jpg)';
-    // }
-
 
     // For volume control
 
@@ -608,40 +585,7 @@ try {
         document.getElementById('mutebtn').style.display = 'none';
         document.getElementById('unmutebtn').style.display = '';
         document.getElementById('vol-control').value = 0;
-    }
-
-    // Implement timer
-    setInterval(async function() {
-        if (!paused && !gameOver && !init_load) {
-            decisecs += 1;
-            if (decisecs == 10) {
-                decisecs = 0;
-                secs += 1;
-            }
-            if (secs == 60) {
-                secs = 0;
-                mins += 1;
-            }
-            var dispTime = '';
-            if (mins < 10) {
-                dispTime += '0';
-            }
-            dispTime += mins + ':';
-            if (secs < 10) {
-                dispTime += '0';
-            }
-            dispTime += secs + '.';
-            dispTime += decisecs;
-
-            timeElement.innerHTML = dispTime;
-            if (multiplayeMode == true && dispTime == "01:00.0") {
-                alert("one minute over bruh");
-                gameOver = true;
-                document.getElementById('scoreDisp').innerHTML = score;
-                document.getElementById('endOverlay').style.display = '';
-            }
-        }
-    }, 100);
+    }    
 
 
     function showForm() {
@@ -667,29 +611,3 @@ try {
     alert(err);
 }
 
-//function startScreen() On start wait 3 seconds
-{
-    document.getElementById('overlay').style.display = "block";
-    f1();
-
-    function f1() {
-        document.getElementById('overlay').innerHTML = "Ready|3";
-        setTimeout(f2, 1000);
-    }
-
-    function f2() {
-        document.getElementById('overlay').innerHTML = "Set|2";
-        setTimeout(f3, 1000);
-    }
-
-    function f3() {
-        document.getElementById('overlay').innerHTML = "Go|1";
-        setTimeout(f4, 1000);
-    }
-
-    function f4() {
-        document.getElementById('overlay').style.display = 'none';
-        document.getElementById('overlay').innerHTML = "Game Paused";
-        init_load = 0;
-    }
-}

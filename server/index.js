@@ -100,7 +100,8 @@ io.on('connection', (socket) => {
         const room = {
             id: uuid(), // generate a unique id for the new room, that way we don't need to deal with duplicates.
             name: roomName,
-            sockets: []
+            sockets: [],
+            scores: []
         };
         rooms[room.id] = room;
         // have the socket join the room they've just created.
@@ -112,17 +113,32 @@ io.on('connection', (socket) => {
     socket.on('joinRoom', (roomId, callback) => {
         console.log("Available room ids: ")
         for (i in rooms) {
-            console.log(i);
+            console.log(i.length);
         }
-        console.log('Trying to connect to: ' + roomId);
+        console.log('Trying to connect to: #' + roomId.length + "#");
         const room = rooms[roomId];
         joinRoom(socket, room);
     });
 
-    socket.on('time', () => {
-        const displayTime = document.getElementById('time');
-        socket.emit('timeIs', displayTime);
-    })
+    socket.on('gameOver', ({roomId, username, score}) => {
+        console.log('Game over for ' + username);
+        room = rooms[roomId];
+        room.scores.push({score: Number(score), username: username});
+        if (room.scores.length >= 2) {
+            console.log('Game over for both');
+            var maxScore = 0;
+            for (const i of room.scores) {
+                if (i.score > maxScore)
+                    maxScore = i.score;
+            }
+            room.sockets = [];
+            room.scores = [];
+            console.log("Max Score is " + maxScore);
+            io.emit('winnerScore', maxScore);
+        }
+    });
+
+    
 
 });
 
