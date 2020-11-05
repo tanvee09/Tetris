@@ -74,7 +74,11 @@ io.on('connection', (socket) => {
 
     socket.emit('message', 'You are connected!');
 
-    socket.on('message', (text) => io.emit('message', socket.name + ': ' + text));
+    socket.on('message', ({roomId, text}) => {
+        for (client of rooms[roomId].sockets) {
+            client.emit('message', socket.name + ': ' + text);
+        }
+    });
 
     socket.on('setUsername', (text) => {
         socket.name = text;
@@ -85,18 +89,28 @@ io.on('connection', (socket) => {
     /**
      * Lets us know that players have joined a room and are waiting in the waiting room.
      */
-    socket.on('ready', () => {
+    socket.on('ready', (roomId) => {
+        console.log(roomId);
+        for (i in rooms)
+            console.log(rooms[i].id);
         console.log(socket.id, "is ready!");
-        const room = rooms[socket.roomId];
-        socket.emit('roomL', room.sockets.length);
+        const room = rooms[roomId];
+        // socket.emit('roomL', room.sockets.length);
         // when we have two players... START THE GAME!
         if (room.sockets.length >= 2) {
             // tell each player to start the game.
             for (const client of room.sockets) {
                 client.emit('initGame');
             }
-            room.sockets = [];
         }
+    });
+
+
+    socket.on('deletePrevSockets', (roomId) => {
+        console.log("Delete sockets in: " + roomId);
+        for (i in rooms)
+            console.log(rooms[i].id);
+        rooms[roomId].sockets = [];
     });
 
 
@@ -142,6 +156,8 @@ io.on('connection', (socket) => {
         rooms[room.id] = room;
         // have the socket join the room they've just created.
         joinRoom(socket, room);
+        for (i in rooms)
+            console.log(rooms[i].id);
         socket.emit('roomId', room.id);
     });
 
@@ -177,23 +193,26 @@ io.on('connection', (socket) => {
             if (countMax == 2) {
                 tie = true;
             }
-            room.sockets = [];
             room.scores = [];
             console.log("Max Score is " + maxScore);
-            io.emit('winner', {score: maxScore, tie: tie});
+            for (client of rooms[roomId].sockets) {
+                client.emit('winner', {score: maxScore, tie: tie});
+            }
+            room.sockets = [];
         }
     });
 
     socket.on('receiveScore', (data) => {
-        io.emit('sendScore', data);
+        // console.log(data.roomId);
+        // console.log("length: " + rooms[data.roomId].sockets.length);
+        for (const client of rooms[data.roomId].sockets) {
+            client.emit('sendScore', {score: data.score, username: data.username});
+        }
     });
 
     socket.on('leaveRoom', () => {
         leaveRooms(socket);
     });
-
-    
-
 });
 
 

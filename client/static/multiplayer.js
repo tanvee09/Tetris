@@ -21,7 +21,7 @@ try {
         const text = input.value;
         input.value = '';
 
-        sock.emit('message', text);
+        sock.emit('message', {roomId: document.getElementById('room_id').innerHTML, text: text});
     }
 
     (() => {
@@ -39,7 +39,7 @@ try {
                 document.getElementById('usernameInputOverlay').style.display = 'none';
                 sock.emit('setUsername', usrname);
                 sock.emit('joinRoom', (document.getElementById('room_id').innerHTML));
-                sock.emit('ready');
+                sock.emit('ready', document.getElementById('room_id').innerHTML);
                 alert('Game will start when both players have entered!');
                 if (!paused)
                     togglePause();
@@ -108,7 +108,7 @@ try {
                     clearInterval();
                 }
             } else if (gameOver && !gameOverSent) {
-                sock.emit('gameOver', {roomId: document.getElementById('room_id').innerHTML, username: username, score: scoreElement.innerHTML});
+                sock.emit('gameOver', {roomId: document.getElementById('room_id').innerHTML, username: usrname, score: scoreElement.innerHTML});
                 gameOverSent = true;
                 clearInterval();
             }
@@ -116,7 +116,7 @@ try {
 
         setInterval(async function() {
             if (!gameOver && !paused) {
-                sock.emit('receiveScore', ({username: usrname, score: scoreElement.innerHTML}));
+                sock.emit('receiveScore', ({username: usrname, score: scoreElement.innerHTML, roomId: document.getElementById('room_id').innerHTML}));
             }
         }, 100);
 

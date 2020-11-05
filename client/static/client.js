@@ -11,22 +11,21 @@ try {
                 alert('Share this room id: ' + arg);
                 alert('Game will start as soon as other person joins!');
             });
+            // sock.emit('ready', document.getElementById('joinRoomInp').value);
         });
 
         document.getElementById('joinRoomInpButton').addEventListener('click', () => {
-            // alert(document.getElementById('joinRoomInp').value);
+            alert(document.getElementById('joinRoomInp').value);
             roomId = document.getElementById('joinRoomInp').value;
-            sock.emit('joinRoom', (document.getElementById('joinRoomInp').value));
-            sock.emit('ready');
+            sock.emit('joinRoom', roomId);
+            sock.emit('ready', roomId);
         });
 
 
         sock.on('initGame', () => {
+            sock.emit('deletePrevSockets', roomId);
             alert("Game Started");
             window.location.href = '/multiplayer' + roomId;
-        });
-        sock.on('roomL', (len) => {
-            alert(len);
         });
 
     })();
