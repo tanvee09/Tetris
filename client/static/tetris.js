@@ -183,6 +183,9 @@ try {
 
         this.x = 3;
         this.y = -2;
+
+        this.shadowx = 3;
+        this.shadowy = -2;
     }
 
 
@@ -208,9 +211,30 @@ try {
     }
 
 
+    Piece.prototype.fillShadow = function(color) {
+        for (var r = 0; r < this.activeTetromino.length; r++) {
+            for (var c = 0; c < this.activeTetromino.length; c++) {
+                if (this.activeTetromino[r][c]) {
+                    drawSquare(this.shadowx + c, this.shadowy + r, color);
+                }
+            }
+        }
+    }
+
+    Piece.prototype.drawShadow = function() {
+        this.fillShadow('gray');
+    }
+
+
+    Piece.prototype.unDrawShadow = function() {
+        this.fillShadow(VACANT);
+    }
+
+
     // Lock the piece in the board after bottom collision
 
     Piece.prototype.lock = function() {
+        this.unDrawShadow();
         for (var r = 0; r < this.activeTetromino.length; r++) {
             for (var c = 0; c < this.activeTetromino.length; c++) {
                 if (!this.activeTetromino[r][c]) {
@@ -266,6 +290,29 @@ try {
     }
 
 
+    // Checks for collision of piece shadow
+
+    Piece.prototype.shadowCollision = function(x, y, piece) {
+        for (var r = 0; r < piece.length; r++) {
+            for (var c = 0; c < piece.length; c++) {
+                if (!piece[r][c]) {
+                    continue;
+                }
+                let newX = this.shadowx + x + c;
+                let newY = this.shadowy + y + r;
+                if (newX < 0 || newX >= COL || newY >= ROW) {
+                    return true;
+                } else if (newY < 0) {
+                    continue;
+                } else if (board[newY][newX] != VACANT) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
     // Checks for collision of piece
 
     Piece.prototype.collision = function(x, y, piece) {
@@ -299,6 +346,14 @@ try {
     }
 
 
+    Piece.prototype.shadowPosition = function() {
+        while(!this.shadowCollision(0, 1, this.activeTetromino)) {
+            this.unDrawShadow();
+            this.shadowy++;
+            this.drawShadow();
+        }
+    }
+
     Piece.prototype.moveDown = function() {
         if (!this.collision(0, 1, this.activeTetromino)) {
             this.unDraw();
@@ -308,6 +363,7 @@ try {
             this.lock();
             // drop new piece
             p = futurePieces.shift();
+            p.shadowPosition();
             generateRandomPieces();
             drawfuturePieces();
         }
@@ -317,8 +373,12 @@ try {
     Piece.prototype.moveLeft = function() {
         if (!this.collision(-1, 0, this.activeTetromino)) {
             this.unDraw();
+            this.unDrawShadow();
             this.x--;
             this.draw();
+            this.shadowy = this.y;
+            this.shadowx = this.x;
+            this.shadowPosition();
         }
     }
 
@@ -326,8 +386,12 @@ try {
     Piece.prototype.moveRight = function() {
         if (!this.collision(1, 0, this.activeTetromino)) {
             this.unDraw();
+            this.unDrawShadow();
             this.x++;
             this.draw();
+            this.shadowy = this.y;
+            this.shadowx = this.x;
+            this.shadowPosition();
         }
     }
 
@@ -336,17 +400,25 @@ try {
         if (init) {
             init = 0;
             this.unDraw();
+            this.unDrawShadow();
             drawHeldPiece(p);
             replace = p;
             p = futurePieces.shift();
+            p.shadowx = p.x;
+            p.shadowy = p.y;
+            p.shadowPosition();
             generateRandomPieces();
             drawfuturePieces();
         } else {
             this.unDraw();
+            this.unDrawShadow();
             drawHeldPiece(p);
             p.x = 3, p.y = -2;
             p = replace;
             replace = this;
+            p.shadowx = p.x;
+            p.shadowy = p.y;
+            p.shadowPosition();
         }
     }
 
@@ -370,10 +442,14 @@ try {
 
         if (!this.collision(kick, 0, nextPattern)) {
             this.unDraw();
+            this.unDrawShadow();
             this.x += kick;
             this.tetrominoN = (this.tetrominoN + 1) % this.tetromino.length;
             this.activeTetromino = this.tetromino[this.tetrominoN];
             this.draw();
+            this.shadowy = this.y;
+            this.shadowx = this.x;
+            this.shadowPosition();
         }
     }
 
@@ -500,6 +576,7 @@ try {
         mins = secs = decisecs = 0;
 
         drop();
+        p.shadowPosition();
     }
 
     startNewGame();
@@ -525,8 +602,11 @@ try {
         }
         drawfuturePieces();
         drawHoldPieceBoard();
-        if (heldPiecePresent)
+        try {
             drawHeldPiece();
+        } catch(err) {
+            ;
+        }
     }
 
 
@@ -554,9 +634,10 @@ try {
             document.getElementById('timeOuter').style.color = 'black';
             cvs.style.borderColor = 'black';
             holdCvs.style.borderColor = 'black';
-            // ctxHold.style.borderColor = 'black';
+            holdCvs.style.borderColor = 'black';
         }
         theme = !theme;
+        p.drawShadow();
     }
 
 
