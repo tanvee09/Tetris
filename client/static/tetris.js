@@ -347,11 +347,11 @@ try {
 
 
     Piece.prototype.shadowPosition = function() {
+        this.unDrawShadow();
         while(!this.shadowCollision(0, 1, this.activeTetromino)) {
-            this.unDrawShadow();
             this.shadowy++;
-            this.drawShadow();
         }
+        this.drawShadow();
     }
 
     Piece.prototype.moveDown = function() {
@@ -373,9 +373,9 @@ try {
     Piece.prototype.moveLeft = function() {
         if (!this.collision(-1, 0, this.activeTetromino)) {
             this.unDraw();
-            this.unDrawShadow();
             this.x--;
             this.draw();
+            this.unDrawShadow();
             this.shadowy = this.y;
             this.shadowx = this.x;
             this.shadowPosition();
@@ -386,9 +386,9 @@ try {
     Piece.prototype.moveRight = function() {
         if (!this.collision(1, 0, this.activeTetromino)) {
             this.unDraw();
-            this.unDrawShadow();
             this.x++;
             this.draw();
+            this.unDrawShadow();
             this.shadowy = this.y;
             this.shadowx = this.x;
             this.shadowPosition();
