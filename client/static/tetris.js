@@ -26,6 +26,7 @@ try {
     const SQ = squareSize = 30;
     var VACANT = 'aliceblue';
     var lineColor = 'black';
+    var shadowcolor = 'rgba(25,25,25,0.3)';
 
     const FP_ROWS = 17;
     const FP_COLS = 5;
@@ -42,7 +43,6 @@ try {
         [OrangeRicky, 'orange'],
         [BlueRicky, 'blue']
     ];
-
 
     // Create board
 
@@ -222,7 +222,7 @@ try {
     }
 
     Piece.prototype.drawShadow = function() {
-        this.fillShadow('gray');
+        this.fillShadow(shadowcolor);
     }
 
 
@@ -619,6 +619,7 @@ try {
             document.body.style.backgroundImage = 'url(./assets/bgTetrisBlocks.jpg)';
             VACANT = 'black';
             lineColor = 'white';
+            shadowcolor = 'rgba(255,255,255,0.3)';
             changeBoardBackground('aliceblue');
             document.getElementById('scoreOuter').style.color = 'white';
             document.getElementById('timeOuter').style.color = 'white';
@@ -630,6 +631,7 @@ try {
             VACANT = 'aliceblue';
             lineColor = 'black';
             changeBoardBackground('black');
+            shadowcolor = 'rgba(25,25,25,0.3)';
             document.getElementById('scoreOuter').style.color = 'black';
             document.getElementById('timeOuter').style.color = 'black';
             cvs.style.borderColor = 'black';

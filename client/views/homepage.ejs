@@ -14,19 +14,20 @@
 
 <body>
 
-    <div id="endOverlay" style="display: initial; text-align: center;">
+    <div id="endOverlay" style="display: initial; text-align: center; padding: 2rem;">
         <p id="gameOverText">TETRIS TADISHI</p>
-        <div id="gameOverOverlay">
+        <div id="gameOverOverlay" style="padding-top: 0.7rem;">
             <a href="/"><button class="formbtn" type="button">Single Player Game</button></a> <br>
-            <a href="/multiplayer"><button class="formbtn" type="button">Create Room</button></a> <br>
-            <button class="formbtn" type="button" onclick="document.getElementById('#joinRoomForm').style.display='initial'">Join Room</button>
-            <form id="createRoomForm">
-                <input type="text" placeholder="Room Number" id="createRoomInp" name="roomInp" style="width: 20rem;">
-                <button class="formbtn" type="button" style="width: 4rem;" id="createRoomInpButton">&rarr;</button>
+            <button class="formbtn" type="button" onclick="showCreateRoomForm()" id="createRoomBtn">Create Room</button>
+            <form id="createRoomForm" style="display: none;">
+                <input type="text" placeholder="Enter Room Name" id="createRoomInp" name="roomInp" style="width: 20rem;">
+                <button class="formbtn inpBtn" type="button" id="createRoomInpButton">Create</button>
             </form>
-            <form id="JoinRoomForm">
-                <input type="text" placeholder="Room Number" id="joinRoomInp" name="roomInp" style="width: 20rem;">
-                <button class="formbtn" type="button" style="width: 4rem;" id="joinRoomInpButton">&rarr;</button>
+            <br>
+            <button class="formbtn" type="button" onclick="showJoinRoomForm()" id="joinRoomBtn">Join Room</button>
+            <form id="joinRoomForm" style="display: none;">
+                <input type="text" placeholder="Enter Room Number" id="joinRoomInp" name="roomInp" style="width: 20rem;">
+                <button class="formbtn inpBtn" type="button" id="joinRoomInpButton">Join</button>
             </form>
         </div>
     </div>

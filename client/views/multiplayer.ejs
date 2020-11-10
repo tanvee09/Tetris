@@ -28,8 +28,19 @@
     <% } %>
 
             <div id="usernameInputOverlay">
-                <input type="text" id="username">
-                <button type="button" id="usernameSubmitButton">Enter</button>
+                
+                
+                
+                <div id="gameOverOverlay">
+
+                    <p id="gameOverText">WAITING</p><br>
+                    <p id="gameOverText">ROOM</p>
+                    <br><br><br>
+                    <input type="text" id="username" placeholder="Enter Username">
+                    <button type="button" class="formbtn inpBtn" id="usernameSubmitButton">Enter</button>
+                        
+
+                </div>
             </div>
 
             <div id="endOverlay">
@@ -91,13 +102,13 @@
                     </div>
                 </div>
                 <div class="row text-center">
-                    <div class="col-6">
+                    <div class="col-4">
                         <div id="scoreOuter">
                             Your Score:
                             <div id="score">0</div>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-8">
                         <div id="scoreOuter">
                             Opponent's Score:
                             <div id="oppScore">0</div>

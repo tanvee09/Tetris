@@ -79,7 +79,7 @@
     display: none;
 }
 
-#nameInp, #roomInp {
+#nameInp, #roomInp, #createRoomInp, #joinRoomInp, #username {
     width: 24rem;
     height: 3.5rem;
     font-size: 22px;
@@ -90,6 +90,11 @@
     color: yellow;
 }
 
-#nameInp:focus, #roomInp:focus {
+#nameInp:focus, #roomInp:focus, #createRoomInp:focus, #joinRoomInp:focus, #username:focus {
     outline: none;
+}
+
+.inpBtn {
+    margin: 2.2rem;
+    width: 8rem;
 }

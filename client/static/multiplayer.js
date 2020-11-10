@@ -27,7 +27,7 @@ try {
     (() => {
         multiplayeMode = true;
         init_load = 0;
-
+        paused = true;
         const sock = io();
 
         var usrname;
