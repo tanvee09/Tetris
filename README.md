@@ -1,7 +1,6 @@
 # Tetris Tadashi
 *Our version of classic tetris game*
-
-## Technologies
+  
 <img src="./images/javascript.svg" height="70">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <img src="./images/html-5.svg" height="70">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <img src="./images/css-3.svg" height="70">&nbsp;&nbsp;&nbsp;
