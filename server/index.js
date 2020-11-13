@@ -230,12 +230,9 @@ app.get("/multiplayer:roomid", async(req, res) => {
 });
 
 
-
-
-
-
-
-
+app.get("/ourteam", async(req, res) => {
+    res.render("ourteam");
+});
 
 
 

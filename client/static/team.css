@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans+Condensed&family=Istok+Web&display=swap');
+
+body {
+    margin: 0;
+    background-color: rgb(34, 31, 31);
+    font-family: 'Encode Sans Condensed', sans-serif;
+    color: white;
+    text-align: center;
+}
+
+.from-top {
+    opacity: 0;
+    animation: fadeIn1 1s ease-in both;
+    animation-delay: 1s;
+}
+
+.from-bottom {
+    opacity: 0;
+    animation: fadeIn2 1s ease-in both;
+    animation-delay: 1s;
+}
+
+.mainheading {
+    margin: 2rem auto 4rem auto;
+    font-size: 70px;
+    text-decoration: underline;
+}
+
+.image {
+    border-radius: 50%;
+    border: 6px solid white;
+    margin: 2rem auto;
+    transition: transform 0.5s;
+}
+
+.image:hover {
+    transform: scale(1.02);
+}
+
+.name {
+    font-size: 30px;
+}
+
+.icons {
+    margin: 0.6rem;
+    transition: transform 0.5s;
+}
+
+.icons:hover {
+    transform: scale(1.05);
+}
+
+@keyframes fadeIn1 {
+	from {
+		opacity: 0;
+		transform: translate3d(0, -20%, 0);
+	}
+	to {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@keyframes fadeIn2 {
+	from {
+		opacity: 0;
+		transform: translate3d(0, 20%, 0);
+	}
+	to {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+}
