@@ -11,13 +11,13 @@ body {
 .from-top {
     opacity: 0;
     animation: fadeIn1 1s ease-in both;
-    animation-delay: 1s;
+    animation-delay: 0.6s;
 }
 
 .from-bottom {
     opacity: 0;
     animation: fadeIn2 1s ease-in both;
-    animation-delay: 1s;
+    animation-delay: 0.6s;
 }
 
 .mainheading {
