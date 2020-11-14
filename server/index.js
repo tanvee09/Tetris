@@ -126,7 +126,7 @@ io.on('connection', (socket) => {
     });
 
     function uniqueRoomID(){
-        var rooms = [];
+        var roomids = Object.keys(rooms);
         var room;
         function codeCreate(){
             var i;
@@ -139,7 +139,7 @@ io.on('connection', (socket) => {
             return s;
         }
         room = codeCreate();
-        while (rooms.includes(room)){
+        while (roomids.includes(room)){
             room = codeCreate();
         }
         return room;
