@@ -18,3 +18,11 @@ $ npm install
 $ nodemon index.js  
 ```
 Go to [http://localhost:3000/tetris](http://localhost:3000/tetris)
+
+## ScreenShots
+<img src="https://www.linkpicture.com/q/Screenshot-from-2021-01-10-18-46-37.png" type="image" height="300">
+<img src="https://www.linkpicture.com/q/Screenshot-from-2021-01-10-18-46-44.png" type="image" height="300">
+<img src="https://www.linkpicture.com/q/Screenshot-from-2021-01-10-18-46-59.png" type="image" height="300">
+<img src="https://www.linkpicture.com/q/Screenshot-from-2021-01-10-18-47-07.png" type="image" height="300">
+<img src="https://www.linkpicture.com/q/Screenshot-from-2021-01-10-18-47-14.png" type="image" height="300">
+<img src="https://www.linkpicture.com/q/Screenshot-from-2021-01-10-18-47-31.png" type="image" height="300">
